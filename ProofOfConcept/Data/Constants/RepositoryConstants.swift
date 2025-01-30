@@ -20,10 +20,15 @@ struct RepositoryConstants {
         case none = ""
     }
     
-    static func buildURL(baseURL: String,
-                         paths: [PathUrl],
-                         endpoint: EndpointUrl,
+    static func buildURL(stringURL: String? = nil,
+                         baseURL: String = "",
+                         paths: [PathUrl] = [],
+                         endpoint: EndpointUrl = .none,
                          queryParams: [String: String] = [:]) throws -> URL {
+        
+        if let stringURL = stringURL, let url = URL(string: stringURL) {
+            return url
+        }
         
         var urlString = baseURL // https://rickandmortyapi.com
         

@@ -16,4 +16,5 @@ public actor BGActor {
 public protocol ApiRepository {
     
     @BGActor func getAllCharacters() async throws -> CharactersDomainModel
+    @BGActor func getCharacterDetail(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel
 }
