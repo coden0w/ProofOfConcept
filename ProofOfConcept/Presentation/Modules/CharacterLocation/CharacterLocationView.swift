@@ -1,41 +1,33 @@
 //
-//  CharactersView.swift
+//  CharacterLocationView.swift
 //  ProofOfConcept
 //
-//  Created by Alexandru Robert Blaga on 29/1/25.
+//  Created by Alexandru Robert Blaga on 30/1/25.
 //
 
 import Foundation
 import SwiftUI
 import Combine
 
-struct CharactersView: View {
+struct CharacterLocationView: View {
     
-    @ObservedObject var viewModel: CharactersViewModel
+    @ObservedObject var viewModel: CharacterLocationViewModel
     
     var body: some View {
         ZStack {
-            List(viewModel.characters) { item in
-                NavigationLink(destination: CharacterLocationView(viewModel: .init(location: item.location))) {
-                    CharacterView(item)
-                }
-                .listRowSeparator(.hidden)
-            }
-            .listStyle(.plain)
+            CharacterLocationView(viewModel.characterLocationModel)
         }
         .bind(viewModel: viewModel)
     }
 }
 
-// MARK: - Extension
-
-extension CharactersView {
+extension CharacterLocationView {
     
-    @ViewBuilder
-    private func CharacterView(_ item: CharactersModel) -> some View {
+    func CharacterLocationView(_ model: CharacterLocationModel) -> some View {
         ZStack {
             HStack {
-                AsyncImage(url: URL(string: item.image)) { image in
+                Spacer()
+                AsyncImage(url: URL(string: model.image)) { image in
                     image.resizable()
                         .frame(width: Constants.fifty,
                                height: Constants.fifty,
@@ -47,15 +39,16 @@ extension CharactersView {
                                height: Constants.fifty,
                                alignment: .center)
                 }
-                
+                .padding(.trailing)
                 VStack {
-                    Text(item.name)
-                        .font(.headline)
+                    Text("Name: \(model.name)")
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(item.status)
-                        .font(.caption)
+                    Text("Type: \(model.type)")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("Dimension: \(model.dimension)")
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                .padding(.horizontal)
             }
         }
     }
@@ -64,8 +57,9 @@ extension CharactersView {
         static let ten: CGFloat = 10
         static let fifty: CGFloat = 50
     }
+
 }
 
 #Preview {
-    CharactersView(viewModel: .sample)
+    CharacterLocationView(viewModel: .sample)
 }
