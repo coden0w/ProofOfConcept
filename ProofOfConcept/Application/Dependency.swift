@@ -23,6 +23,8 @@ class Dependency<T: Sendable> {
         switch T.self {
         case is GetAllCharactersUseCase.Type:
             dependency = GetAllCharactersUseCase(repository: getApiRepository()) as! T
+        case is GetCharacterDetailUseCase.Type:
+            dependency = GetCharacterDetailUseCase(repository: getApiRepository()) as! T
         default:
             fatalError("Dependency \(T.self) does not exists")
         }

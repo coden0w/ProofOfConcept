@@ -55,7 +55,8 @@ class CharactersViewModel: BaseViewModel {
                     .init(id: characterDomainModel.id,
                           name: characterDomainModel.name,
                           status: characterDomainModel.status,
-                          image: characterDomainModel.image)
+                          image: characterDomainModel.image,
+                          location: characterDomainModel.location.url)
             }
         }
     }
