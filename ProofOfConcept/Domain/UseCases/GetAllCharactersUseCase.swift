@@ -17,6 +17,7 @@ final class GetAllCharactersUseCase: UseCaseProtocol {
     }
     
     public func handle(input: Void) async throws -> CharactersDomainModel {
+        print("🚀 GetAllCharactersUseCase")
         return try await repository.getAllCharacters()
     }
 }

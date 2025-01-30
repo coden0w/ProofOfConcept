@@ -31,12 +31,25 @@ public actor ApiRepositoryImpl: ApiRepository {
     public func getAllCharacters() async throws -> CharactersDomainModel {
         do {
             let url = try RepositoryConstants.buildURL(baseURL: baseURL,
-                                                   paths: [.api],
-                                                   endpoint: .character)
+                                                       paths: [.api],
+                                                       endpoint: .character)
             let request = request(url: url, method: .get, encoding: .json)
             let response = try await response(request: request)
             try checkResponse(response)
             let domainModel = try CharactersDataModel(data: response.0).parseToDomainModel()
+            return domainModel
+        } catch {
+            throw error
+        }
+    }
+    
+    public func getCharacterDetail(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
+        do {
+            let url = try RepositoryConstants.buildURL(stringURL: requestModel.location)
+            let request = request(url: url, method: .get, encoding: .json)
+            let response = try await response(request: request)
+            try checkResponse(response)
+            let domainModel = try CharacterLocationDetailDataModel(data: response.0).parseToDomainModel()
             return domainModel
         } catch {
             throw error
