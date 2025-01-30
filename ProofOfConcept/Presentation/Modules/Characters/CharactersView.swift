@@ -16,14 +16,18 @@ struct CharactersView: View {
     var body: some View {
         ZStack {
             List(viewModel.characters) { item in
-                NavigationLink(destination: CharacterLocationView(viewModel: .init(location: item.location))) {
-                    CharacterView(item)
-                }
-                .listRowSeparator(.hidden)
+                CharacterView(item)
+                    .listRowSeparator(.hidden)
+                    .onTapGesture {
+                        viewModel.navigateToCharacterLocation(location: item.location)
+                    }
             }
             .listStyle(.plain)
         }
         .bind(viewModel: viewModel)
+        .navigationBarBackButtonHidden()
+        .navigationTitle("Characters")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

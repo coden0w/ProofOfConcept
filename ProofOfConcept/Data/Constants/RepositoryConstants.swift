@@ -20,11 +20,11 @@ struct RepositoryConstants {
         case none = ""
     }
     
-    static func buildURL(stringURL: String? = nil,
-                         baseURL: String = "",
-                         paths: [PathUrl] = [],
-                         endpoint: EndpointUrl = .none,
-                         queryParams: [String: String] = [:]) throws -> URL {
+    @BGActor static func buildURL(stringURL: String? = nil,
+                                  baseURL: String = "",
+                                  paths: [PathUrl] = [],
+                                  endpoint: EndpointUrl = .none,
+                                  queryParams: [String: String] = [:]) throws -> URL {
         
         if let stringURL = stringURL, let url = URL(string: stringURL) {
             return url
