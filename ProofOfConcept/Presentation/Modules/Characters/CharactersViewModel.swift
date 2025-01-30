@@ -12,6 +12,7 @@ class CharactersViewModel: BaseViewModel {
     
     // MARK: - Properties
     
+    private let coordinator: AppCoordinator
     @Published var characters: [CharactersModel] = []
     
     // MARK: - Dependencies
@@ -20,20 +21,20 @@ class CharactersViewModel: BaseViewModel {
     
     // MARK: - Init
     
-    override init () {
-        // Empty
+    init (coordinator: AppCoordinator) {
+        self.coordinator = coordinator
     }
     
     // MARK: - Life Cycle
     
     override func onAppear() {
-        super.onAppear()
         getCharacters()
     }
     
-    override func onDisappear() {
-        super.onDisappear()
-        // remove if not needed
+    // MARK: - Navigation Functions
+    
+    func navigateToCharacterLocation(location: String) {
+        coordinator.showCharacterLocation(location: location)
     }
     
     // MARK: - Private Functions
@@ -42,22 +43,21 @@ class CharactersViewModel: BaseViewModel {
         Task {
             do {
                 let response = try await self.getAllCharactersUseCase.execute()
-                self.transformModel(response.characters)
+                await self.transformModel(response.characters)
             } catch {
                 print(error)
             }
         }
     }
     
+    @MainActor
     private func transformModel(_ characters: [CharacterDomainModel]) {
-        DispatchQueue.main.async {
-            self.characters = characters.map { characterDomainModel in
-                    .init(id: characterDomainModel.id,
-                          name: characterDomainModel.name,
-                          status: characterDomainModel.status,
-                          image: characterDomainModel.image,
-                          location: characterDomainModel.location.url)
-            }
+        self.characters = characters.map { characterDomainModel in
+                .init(id: characterDomainModel.id,
+                      name: characterDomainModel.name,
+                      status: characterDomainModel.status,
+                      image: characterDomainModel.image,
+                      location: characterDomainModel.location.url)
         }
     }
     
@@ -65,6 +65,6 @@ class CharactersViewModel: BaseViewModel {
 
 extension CharactersViewModel {
     static var sample: CharactersViewModel {
-        return CharactersViewModel()
+        return CharactersViewModel(coordinator: .sample)
     }
 }

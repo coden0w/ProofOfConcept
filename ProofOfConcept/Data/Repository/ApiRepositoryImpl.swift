@@ -28,11 +28,11 @@ public actor ApiRepositoryImpl: ApiRepository {
         self.baseURL = baseURL
     }
     
-    public func getAllCharacters() async throws -> CharactersDomainModel {
+    @BGActor public func getAllCharacters() async throws -> CharactersDomainModel {
         do {
-            let url = try RepositoryConstants.buildURL(baseURL: baseURL,
-                                                       paths: [.api],
-                                                       endpoint: .character)
+            let url = try await RepositoryConstants.buildURL(baseURL: baseURL,
+                                                             paths: [.api],
+                                                             endpoint: .character)
             let request = request(url: url, method: .get, encoding: .json)
             let response = try await response(request: request)
             try checkResponse(response)
@@ -43,7 +43,7 @@ public actor ApiRepositoryImpl: ApiRepository {
         }
     }
     
-    public func getCharacterDetail(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
+    @BGActor public func getCharacterDetail(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
         do {
             let url = try RepositoryConstants.buildURL(stringURL: requestModel.location)
             let request = request(url: url, method: .get, encoding: .json)
@@ -73,14 +73,14 @@ extension ApiRepositoryImpl {
         case form = "application/x-www-form-urlencoded"
     }
     
-    func request(url: URL, method: RequestType, encoding: EncodingType) -> URLRequest {
+    @BGActor func request(url: URL, method: RequestType, encoding: EncodingType) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.setValue(encoding.rawValue, forHTTPHeaderField: EncodingType.key)
         return request
     }
     
-    func response(request: URLRequest) async throws -> (Data, URLResponse) {
+    @BGActor func response(request: URLRequest) async throws -> (Data, URLResponse) {
         do {
             let result = try await URLSession.shared.data(for: request)
             try checkResponse(result)
@@ -90,7 +90,7 @@ extension ApiRepositoryImpl {
         }
     }
     
-    func checkResponse(_ result: (Data, URLResponse)) throws {
+    @BGActor func checkResponse(_ result: (Data, URLResponse)) throws {
         let (_, response) = result
         if let httpResponse = response as? HTTPURLResponse {
             switch httpResponse.statusCode {

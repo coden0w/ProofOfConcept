@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ProofOfConceptApp: App {
+    
+    @StateObject var coordinator = AppCoordinator.sample
+    
     var body: some Scene {
         WindowGroup {
-            RootView()
+            AppCoordinatorView(coordinator: coordinator)
         }
     }
 }
