@@ -8,11 +8,10 @@
 import Foundation
 import Combine
 
-class CharacterLocationViewModel: BaseViewModel {
+class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Properties
     
-    private let coordinator: AppCoordinator
     private let location: String
     @Published var characterLocationModel: CharacterLocationModel = .init()
     
@@ -24,9 +23,8 @@ class CharacterLocationViewModel: BaseViewModel {
     
     init(coordinator: AppCoordinator,
          location: String) {
-        self.coordinator = coordinator
         self.location = location
-        super.init()
+        super.init(coordinator: coordinator)
     }
     
     // MARK: - Life Cycle

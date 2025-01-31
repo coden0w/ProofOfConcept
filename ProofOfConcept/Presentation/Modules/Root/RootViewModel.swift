@@ -8,14 +8,13 @@
 import Foundation
 import Combine
 
-class RootViewModel: BaseViewModel {
+class RootViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Properties
     
-    private let coordinator: AppCoordinator
     
     init(coordinator: AppCoordinator) {
-        self.coordinator = coordinator
+        super.init(coordinator: coordinator)
     }
     
     override func onAppear() {
@@ -27,7 +26,7 @@ class RootViewModel: BaseViewModel {
     }
     
     func navigateToCharacters() {
-        coordinator.showCharacters()
+        coordinator?.showCharacters()
     }
 }
 
