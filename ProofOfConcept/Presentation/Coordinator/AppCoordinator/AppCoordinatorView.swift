@@ -13,10 +13,10 @@ struct AppCoordinatorView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.navigationPath) {
-            coordinator.initialView
+            initialView
                 .navigationDestination(for: AnyHashable.self) { hashable in
                     if let path = hashable as? AppCoordinator.Path {
-                        coordinator.buildPathDestionation(path: path)
+                        buildPathDestionation(path: path)
                     } else {
                         Text("")
                             .onAppear {
@@ -26,8 +26,31 @@ struct AppCoordinatorView: View {
                 }
         }
     }
+    
+    @ViewBuilder
+    private func buildPathDestionation(path: AppCoordinator.Path) -> some View {
+        switch path {
+        case .characters:
+            charactersView
+        case .characterLocation(let location):
+            characterLocationView(location: location)
+        }
+    }
 }
 
-#Preview {
-    AppCoordinatorView(coordinator: .sample)
+// MARK: - ViewBuilders
+
+extension AppCoordinatorView {
+    
+    @ViewBuilder var initialView: some View {
+        RootView(viewModel: .init(coordinator: coordinator))
+    }
+    
+    @ViewBuilder var charactersView: some View {
+        CharactersView(viewModel: .init(coordinator: coordinator))
+    }
+    
+    @ViewBuilder func characterLocationView(location: String) -> some View {
+        CharacterLocationView(viewModel: .init(coordinator: coordinator, location: location))
+    }
 }
