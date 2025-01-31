@@ -51,8 +51,7 @@ class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
         self.characterLocationModel = .init(name: response.name,
                                             type: response.type,
                                             dimension: response.dimension,
-                                            residents: self.transformResidentsToImage(response.residents),
-                                            image: self.transformCharacterToImage(response.url))
+                                            residents: self.transformResidentsToImage(response.residents))
         
     }
     
@@ -61,11 +60,6 @@ class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
             let residentImage = resident.replacingOccurrences(of: "/character/", with: "/character/avatar/") + ".jpeg"
             return residentImage
         }
-    }
-    
-    private func transformCharacterToImage(_ url: String) -> String {
-        let characterImage = url.replacingOccurrences(of: "/character/", with: "/character/avatar/") + ".jpeg"
-        return characterImage
     }
 }
 

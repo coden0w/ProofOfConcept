@@ -26,6 +26,7 @@ extension CharacterLocationView {
     func CharacterLocationView(_ model: CharacterLocationModel) -> some View {
         ZStack {
             HStack {
+                /*
                 Spacer()
                 AsyncImage(url: URL(string: model.image)) { image in
                     image.resizable()
@@ -40,6 +41,7 @@ extension CharacterLocationView {
                                alignment: .center)
                 }
                 .padding(.trailing)
+                 */
                 VStack {
                     Text("Name: \(model.name)")
                         .frame(maxWidth: .infinity, alignment: .leading)
