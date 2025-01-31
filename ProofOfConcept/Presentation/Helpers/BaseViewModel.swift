@@ -9,7 +9,17 @@ import Foundation
 import SwiftUI
 import Combine
 
-class BaseViewModel: ObservableObject, ViewLifeCycle {
+class BaseViewModel<T>: ObservableObject, ViewLifeCycle {
+    
+    private var _coordinator: AppNavigationCoordinator?
+    
+    public var coordinator: T? {
+        _coordinator as? T
+    }
+    
+    public init(coordinator: AppNavigationCoordinator) {
+        self._coordinator = coordinator
+    }
     
     open func onAppear() {
         print("onAppear \(String(describing: Self.self))")
@@ -18,10 +28,14 @@ class BaseViewModel: ObservableObject, ViewLifeCycle {
     open func onDisappear() {
         print("onDisappear \(String(describing: Self.self))")
     }
+    
+    deinit {
+        print("deinit \(String(describing: Self.self))")
+    }
 }
 
 extension View {
-    func bind(viewModel: BaseViewModel) -> some View {
+    func bind<T>(viewModel: BaseViewModel<T>) -> some View {
         self.bind(lifeCycle: viewModel)
     }
 }

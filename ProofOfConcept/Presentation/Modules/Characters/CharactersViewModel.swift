@@ -8,11 +8,10 @@
 import Foundation
 import Combine
 
-class CharactersViewModel: BaseViewModel {
+class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Properties
     
-    private let coordinator: AppCoordinator
     @Published var characters: [CharactersModel] = []
     
     // MARK: - Dependencies
@@ -22,7 +21,7 @@ class CharactersViewModel: BaseViewModel {
     // MARK: - Init
     
     init (coordinator: AppCoordinator) {
-        self.coordinator = coordinator
+        super.init(coordinator: coordinator)
     }
     
     // MARK: - Life Cycle
@@ -34,7 +33,7 @@ class CharactersViewModel: BaseViewModel {
     // MARK: - Navigation Functions
     
     func navigateToCharacterLocation(location: String) {
-        coordinator.showCharacterLocation(location: location)
+        coordinator?.showCharacterLocation(location: location)
     }
     
     // MARK: - Private Functions
