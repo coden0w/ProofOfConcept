@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct ProofOfConceptApp: App {
     
-    @StateObject var coordinator = AppCoordinator.sample
+    @State var coordinator = AppCoordinator.sample
     
     var body: some Scene {
         WindowGroup {
