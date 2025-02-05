@@ -13,11 +13,12 @@ class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
     // MARK: - Properties
     
     private let location: String
-    @Published var characterLocationModel: CharacterLocationModel = .init()
+    var characterLocationModel: CharacterLocationModel = .init()
     
     // MARK: - Dependencies
     
-    @Dependency private var getCharacterDetailUseCase: GetCharacterDetailUseCase
+//    @Dependency private var getCharacterDetailUseCase: GetCharacterDetailUseCase
+    private let getCharacterDetailUseCase = Dependency.shared.getCharacterDetailUseCase()
     
     // MARK: - Init
     
@@ -30,6 +31,7 @@ class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
     // MARK: - Life Cycle
     
     override func onAppear() {
+        super.onAppear()
         getCharacterDetail()
     }
     
@@ -38,8 +40,8 @@ class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
     private func getCharacterDetail() {
         Task {
             do {
-                let response = try await self.getCharacterDetailUseCase.execute(input: .init(location: self.location))
-                await self.transformModel(response)
+                let response = try await getCharacterDetailUseCase.execute(.init(location: self.location))
+                self.transformModel(response)
             } catch {
                 print(error)
             }

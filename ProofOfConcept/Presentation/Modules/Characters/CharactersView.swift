@@ -11,7 +11,7 @@ import Combine
 
 struct CharactersView: View {
     
-    @ObservedObject var viewModel: CharactersViewModel
+    @State var viewModel: CharactersViewModel
     
     var body: some View {
         ZStack {
