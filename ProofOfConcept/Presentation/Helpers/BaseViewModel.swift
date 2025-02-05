@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 import Combine
 
-class BaseViewModel<T>: ObservableObject, ViewLifeCycle {
+@Observable @MainActor
+class BaseViewModel<T>: @preconcurrency ViewLifeCycle {
     
-    private var _coordinator: AppNavigationCoordinator?
+    private var _coordinator: (AppNavigationCoordinator)?
     
     public var coordinator: T? {
         _coordinator as? T
@@ -22,11 +23,11 @@ class BaseViewModel<T>: ObservableObject, ViewLifeCycle {
     }
     
     open func onAppear() {
-        print("onAppear \(String(describing: Self.self))")
+        print("View calls onAppear \(String(describing: Self.self))")
     }
     
     open func onDisappear() {
-        print("onDisappear \(String(describing: Self.self))")
+        print("View calls onDisappear \(String(describing: Self.self))")
     }
     
     deinit {

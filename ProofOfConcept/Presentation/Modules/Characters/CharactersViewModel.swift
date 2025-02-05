@@ -12,11 +12,12 @@ class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Properties
     
-    @Published var characters: [CharactersModel] = []
+    var characters: [CharactersModel] = []
     
     // MARK: - Dependencies
     
-    @Dependency private var getAllCharactersUseCase: GetAllCharactersUseCase
+//    private let getAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase()
+    @Injected private var getAllCharactersUseCase: GetAllCharactersUseCase
     
     // MARK: - Init
     
@@ -27,6 +28,7 @@ class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     // MARK: - Life Cycle
     
     override func onAppear() {
+        super.onAppear()
         getCharacters()
     }
     
@@ -41,15 +43,14 @@ class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     private func getCharacters() {
         Task {
             do {
-                let response = try await self.getAllCharactersUseCase.execute()
-                await self.transformModel(response.characters)
+                let response = try await getAllCharactersUseCase.execute()
+                self.transformModel(response.characters)
             } catch {
                 print(error)
             }
         }
     }
     
-    @MainActor
     private func transformModel(_ characters: [CharacterDomainModel]) {
         self.characters = characters.map { characterDomainModel in
                 .init(id: characterDomainModel.id,
