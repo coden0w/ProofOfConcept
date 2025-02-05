@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CharactersDomainModel {
+public struct CharactersDomainModel: Sendable {
     
     public let info: CharacterInfoDomainModel
     public let characters: [CharacterDomainModel]
@@ -19,13 +19,13 @@ public struct CharactersDomainModel {
     }
 }
 
-public struct CharacterInfoDomainModel {
+public struct CharacterInfoDomainModel: Sendable {
     public let count: Int
     public let pages: Int
     public let nextUrl: String
 }
 
-public struct CharacterDomainModel {
+public struct CharacterDomainModel: Sendable {
     public let id: Int
     public let name: String
     public let status: String
@@ -40,12 +40,12 @@ public struct CharacterDomainModel {
     public let created: String
 }
 
-public struct CharacterOriginDomainModel {
+public struct CharacterOriginDomainModel: Sendable {
     public let name: String
     public let url: String
 }
 
-public struct CharacterLocationDomainModel {
+public struct CharacterLocationDomainModel: Sendable {
     public let name: String
     public let url: String
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CharacterLocationDetailRequestDomainModel {
+public struct CharacterLocationDetailRequestDomainModel: Sendable {
     
     public let location: String
     
