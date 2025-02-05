@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 import Combine
 
-@Observable @MainActor
-class BaseViewModel<T>: @preconcurrency ViewLifeCycle {
+@MainActor
+class BaseViewModel<T>: ObservableObject, @preconcurrency ViewLifeCycle {
     
     private var _coordinator: (AppNavigationCoordinator)?
     

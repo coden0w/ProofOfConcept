@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-
+/*
 @propertyWrapper
 actor Injected<T: Sendable> {
     
@@ -28,6 +28,7 @@ actor Injected<T: Sendable> {
         return dependency
     }
 }
+*/
 
 final class Dependency: Sendable {
     

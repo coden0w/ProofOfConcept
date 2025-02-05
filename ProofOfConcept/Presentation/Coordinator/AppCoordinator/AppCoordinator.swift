@@ -12,6 +12,9 @@ import Combine
 protocol AppNavigationCoordinator {
     func showCharacters()
     func showCharacterLocation(location: String)
+    func pop()
+    func popToRoot()
+    func popToScreen(_ screen: AppCoordinator.Path)
 }
 
 @Observable
@@ -32,31 +35,6 @@ final class AppCoordinator: Identifiable {
     init() {
         // Empty
     }
-    
-    @MainActor @ViewBuilder
-    func buildPathDestionation(path: AppCoordinator.Path) -> some View {
-        switch path {
-        case .characters:
-            charactersView
-        case .characterLocation(let location):
-            characterLocationView(location: location)
-        }
-    }
-}
-
-extension AppCoordinator {
-    
-    @MainActor @ViewBuilder var initialView: some View {
-        RootView(viewModel: RootViewModel(coordinator: self))
-    }
-    
-    @MainActor @ViewBuilder var charactersView: some View {
-        CharactersView(viewModel: CharactersViewModel(coordinator: self))
-    }
-    
-    @MainActor @ViewBuilder func characterLocationView(location: String) -> some View {
-        CharacterLocationView(viewModel: CharacterLocationViewModel(coordinator: self, location: location))
-    }
 }
 
 // MARK: - Navigations
@@ -69,6 +47,27 @@ extension AppCoordinator: AppNavigationCoordinator {
     
     func showCharacterLocation(location: String) {
         navigationPath.append(Path.characterLocation(location))
+    }
+    
+    func popToRoot() {
+        navigationPath.removeAll()
+    }
+    
+    func pop() {
+        guard navigationPath.count > 1 else {
+            return
+        }
+        navigationPath.removeLast()
+    }
+    
+    func popToScreen(_ screen: AppCoordinator.Path) {
+        if let index = navigationPath.firstIndex(where: { $0 == screen as AnyHashable }) {
+            let removeLastItems = navigationPath.count - index - 1
+            navigationPath.removeLast(removeLastItems)
+        } else {
+            print("y una mierda")
+        }
+        
     }
 }
 

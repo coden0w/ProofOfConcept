@@ -11,18 +11,26 @@ import Combine
 
 struct CharactersView: View {
     
-    @State var viewModel: CharactersViewModel
+    @ObservedObject var viewModel: CharactersViewModel
     
     var body: some View {
         ZStack {
-            List(viewModel.characters) { item in
-                CharacterView(item)
-                    .listRowSeparator(.hidden)
-                    .onTapGesture {
-                        viewModel.navigateToCharacterLocation(location: item.location)
-                    }
+            VStack {
+                Button {
+                    viewModel.getCharacters()
+                } label: {
+                    Text("Ejecutame")
+                }
+
+                List(viewModel.characters) { item in
+                    CharacterView(item)
+                        .listRowSeparator(.hidden)
+                        .onTapGesture {
+                            viewModel.navigateToCharacterLocation(location: item.location)
+                        }
+                }
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
         }
         .bind(viewModel: viewModel)
         .navigationBarBackButtonHidden()

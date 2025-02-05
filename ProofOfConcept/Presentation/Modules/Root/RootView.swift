@@ -9,15 +9,13 @@ import SwiftUI
 
 struct RootView: View {
     
-    @State var viewModel: RootViewModel
+    @ObservedObject var viewModel: RootViewModel
     
     var body: some View {
         ZStack {
             Text("Splash")
-                .onAppear {
-                    viewModel.navigateToCharacters()
-                }
         }
+        .bind(lifeCycle: viewModel)
     }
 }
 

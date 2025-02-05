@@ -8,16 +8,15 @@
 import Foundation
 import Combine
 
-class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
+final class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Properties
     
-    var characters: [CharactersModel] = []
+    @Published var characters: [CharactersModel] = []
     
     // MARK: - Dependencies
     
-//    private let getAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase()
-    @Injected private var getAllCharactersUseCase: GetAllCharactersUseCase
+    private let getAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase()
     
     // MARK: - Init
     
@@ -40,7 +39,7 @@ class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Private Functions
     
-    private func getCharacters() {
+    func getCharacters() {
         Task {
             do {
                 let response = try await getAllCharactersUseCase.execute()
