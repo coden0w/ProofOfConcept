@@ -11,7 +11,7 @@ import Combine
 
 struct CharacterLocationView: View {
     
-    @State var viewModel: CharacterLocationViewModel
+    @ObservedObject var viewModel: CharacterLocationViewModel
     
     var body: some View {
         ZStack {
@@ -25,23 +25,13 @@ extension CharacterLocationView {
     
     func CharacterLocationView(_ model: CharacterLocationModel) -> some View {
         ZStack {
-            HStack {
-                /*
-                Spacer()
-                AsyncImage(url: URL(string: model.image)) { image in
-                    image.resizable()
-                        .frame(width: Constants.fifty,
-                               height: Constants.fifty,
-                               alignment: .center)
-                        .clipShape(RoundedRectangle(cornerRadius: Constants.ten))
-                } placeholder: {
-                    ProgressView()
-                        .frame(width: Constants.fifty,
-                               height: Constants.fifty,
-                               alignment: .center)
+            VStack {
+                Button {
+                    viewModel.popToRoot()
+                } label: {
+                    Text("Volver a root")
                 }
-                .padding(.trailing)
-                 */
+                Spacer()
                 VStack {
                     Text("Name: \(model.name)")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -51,6 +41,8 @@ extension CharacterLocationView {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.horizontal)
+                .fixedSize(horizontal: true, vertical: false)
+                Spacer()
             }
         }
     }

@@ -8,16 +8,15 @@
 import Foundation
 import Combine
 
-class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
+final class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Properties
     
     private let location: String
-    var characterLocationModel: CharacterLocationModel = .init()
+    @Published var characterLocationModel: CharacterLocationModel = .init()
     
     // MARK: - Dependencies
     
-//    @Dependency private var getCharacterDetailUseCase: GetCharacterDetailUseCase
     private let getCharacterDetailUseCase = Dependency.shared.getCharacterDetailUseCase()
     
     // MARK: - Init
@@ -62,6 +61,12 @@ class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
             let residentImage = resident.replacingOccurrences(of: "/character/", with: "/character/avatar/") + ".jpeg"
             return residentImage
         }
+    }
+    
+    // MARK: - Navigation Functions
+    
+    func popToRoot() {
+        coordinator?.popToRoot()
     }
 }
 

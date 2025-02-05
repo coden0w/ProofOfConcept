@@ -19,6 +19,7 @@ class RootViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     override func onAppear() {
         super.onAppear()
+        navigateToCharacters()
     }
     
     override func onDisappear() {
@@ -26,7 +27,9 @@ class RootViewModel: BaseViewModel<AppNavigationCoordinator> {
     }
     
     func navigateToCharacters() {
-        coordinator?.showCharacters()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.coordinator?.showCharacters()
+        }
     }
 }
 
