@@ -8,31 +8,43 @@
 import Foundation
 import Combine
 
-// MARK: - Dependency Injector (ProofOfConcept)
-
 @propertyWrapper
-class Dependency<T: Sendable> {
+actor Injected<T: Sendable> {
     
-    init() {
+    internal init() {
         // Empty
     }
     
-    var wrappedValue: T {
+    @MainActor var wrappedValue: T {
         var dependency: T
-        
         switch T.self {
         case is GetAllCharactersUseCase.Type:
-            dependency = GetAllCharactersUseCase(repository: getApiRepository()) as! T
+            dependency = Dependency.shared.getAllCharactersUseCase() as! T
         case is GetCharacterDetailUseCase.Type:
-            dependency = GetCharacterDetailUseCase(repository: getApiRepository()) as! T
+            dependency = Dependency.shared.getCharacterDetailUseCase() as! T
         default:
             fatalError("Dependency \(T.self) does not exists")
         }
-        
         return dependency
     }
 }
 
+final class Dependency: Sendable {
+    
+    static let shared = Dependency()
+    
+    internal init() {
+        // Empty
+    }
+    
+    func getAllCharactersUseCase() -> GetAllCharactersUseCase {
+        return GetAllCharactersUseCase(repository: getApiRepository())
+    }
+    
+    func getCharacterDetailUseCase() -> GetCharacterDetailUseCase {
+        return GetCharacterDetailUseCase(repository: getApiRepository())
+    }
+}
 extension Dependency {
     
     private func getApiRepository() -> ApiRepository { // Configure here the environment
