@@ -13,7 +13,7 @@ public actor BGActor {
     public static let shared = BGActor()
 }
 
-public protocol ApiRepository {
+public protocol ApiRepository: Sendable {
     
     @BGActor func getAllCharacters() async throws -> CharactersDomainModel
     @BGActor func getCharacterDetail(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel

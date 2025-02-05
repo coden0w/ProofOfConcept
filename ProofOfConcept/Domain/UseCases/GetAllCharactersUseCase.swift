@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class GetAllCharactersUseCase: UseCaseProtocol {
+final class GetAllCharactersUseCase: UseCaseProtocol<Void, CharactersDomainModel> {
     
     private let repository: ApiRepository
     
@@ -16,7 +16,7 @@ final class GetAllCharactersUseCase: UseCaseProtocol {
         self.repository = repository
     }
     
-    public func handle(input: Void) async throws -> CharactersDomainModel {
+    override func handle(input: Void) async throws -> CharactersDomainModel {
         print("🚀 GetAllCharactersUseCase")
         return try await repository.getAllCharacters()
     }
