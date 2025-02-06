@@ -12,13 +12,14 @@ import Combine
 @MainActor
 class BaseViewModel<T>: ObservableObject, @preconcurrency ViewLifeCycle {
     
-    private var _coordinator: (AppNavigationCoordinator)?
+    private var _coordinator: (AppCoordinatorProtocol)?
+    public var subscriptions = [AnyCancellable]()
     
     public var coordinator: T? {
         _coordinator as? T
     }
     
-    public init(coordinator: AppNavigationCoordinator) {
+    public init(coordinator: AppCoordinatorProtocol) {
         self._coordinator = coordinator
     }
     

@@ -23,6 +23,7 @@ public struct CharacterInfoDomainModel: Sendable {
     public let count: Int
     public let pages: Int
     public let nextUrl: String
+    public let prevUrl: String
 }
 
 public struct CharacterDomainModel: Sendable {

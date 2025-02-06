@@ -12,5 +12,4 @@ struct CharactersModel: Identifiable {
     let name: String
     let status: String
     let image: String
-    let location: String
 }

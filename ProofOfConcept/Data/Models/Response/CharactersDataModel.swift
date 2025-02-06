@@ -29,7 +29,8 @@ extension CharactersDataModel {
         
         let characterInfoDomainModel = CharacterInfoDomainModel(count: info?.count ?? .zero,
                                                                 pages: info?.pages ?? .zero,
-                                                                nextUrl: info?.nextUrl ?? "")
+                                                                nextUrl: info?.next ?? "",
+                                                                prevUrl: info?.prev ?? "")
         
         let charactersDomainModel: [CharacterDomainModel] = characters?.compactMap({ characterDataModel in
             characterDataModel.parseToDomainModel()
@@ -43,7 +44,15 @@ extension CharactersDataModel {
 struct CharacterInfoDataModel: Codable {
     let count: Int?
     let pages: Int?
-    let nextUrl: String?
+    let next: String?
+    let prev: String?
+    
+    enum CondingKeys: String, CodingKey {
+        case count = "count"
+        case pages = "pages"
+        case next = "next"
+        case prev = "prev"
+    }
 }
 
 struct CharacterDataModel: Codable {

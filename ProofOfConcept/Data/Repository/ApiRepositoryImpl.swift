@@ -28,12 +28,13 @@ public actor ApiRepositoryImpl: ApiRepository {
         self.baseURL = baseURL
     }
     
-    @BGActor public func getAllCharacters() async throws -> CharactersDomainModel {
+    @BGActor public func getAllCharacters(requestModel: CharactersRequestDomainModel) async throws -> CharactersDomainModel {
         do {
             let url = try await RepositoryConstants.buildURL(baseURL: baseURL,
                                                              paths: [.api],
-                                                             endpoint: .character)
-            let request = request(url: url, method: .get, encoding: .json)
+                                                             endpoint: .character,
+                                                             queryParams: ["page": "\(requestModel.page)"])
+            let request = request(url: url, method: .get)
             let response = try await response(request: request)
             try checkResponse(response)
             let domainModel = try CharactersDataModel(data: response.0).parseToDomainModel()
@@ -71,12 +72,15 @@ extension ApiRepositoryImpl {
         
         case json = "application/json"
         case form = "application/x-www-form-urlencoded"
+        case none = ""
     }
     
-    @BGActor func request(url: URL, method: RequestType, encoding: EncodingType) -> URLRequest {
+    @BGActor func request(url: URL, method: RequestType, encoding: EncodingType = .none) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        request.setValue(encoding.rawValue, forHTTPHeaderField: EncodingType.key)
+        if encoding != .none {
+            request.setValue(encoding.rawValue, forHTTPHeaderField: EncodingType.key)
+        }
         return request
     }
     
