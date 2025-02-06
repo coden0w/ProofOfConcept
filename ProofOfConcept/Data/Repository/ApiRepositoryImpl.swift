@@ -46,13 +46,25 @@ public actor ApiRepositoryImpl: ApiRepository {
         }
     }
     
-    @BGActor public func getCharacterDetail(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
-        do {
-            let url = try RepositoryConstants.buildURL(stringURL: requestModel.location)
-            let request = request(url: url, method: .get, encoding: .json)
+    @BGActor public func getCharacterLocation(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
+        do { // 3
+            let url = try await RepositoryConstants.buildURL(stringURL: "\(baseURL)/api/location/\(requestModel.location)")
+            let request = request(url: url, method: .get)
             let response = try await response(request: request)
             try checkResponse(response)
             let domainModel = try CharacterLocationDetailDataModel(data: response.0).parseToDomainModel()
+            return domainModel
+        } catch {
+            throw error
+        }
+    }
+    
+    @BGActor public func getCharacterEpisode(requestModel: CharacterEpisodeDetailRequestDomainModel) async throws -> CharacterEpisodeDetailDomainModel {
+        do {
+            let url = try RepositoryConstants.buildURL(stringURL: requestModel.episode)
+            let request = request(url: url, method: .get)
+            let response = try await response(request: request)
+            let domainModel = try CharacterEpisodeDetailDataModel(data: response.0).parseToDomainModel()
             return domainModel
         } catch {
             throw error

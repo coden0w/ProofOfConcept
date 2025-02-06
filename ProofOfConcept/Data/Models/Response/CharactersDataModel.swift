@@ -65,7 +65,7 @@ struct CharacterDataModel: Codable {
     let origin: CharacterOriginDataModel?
     let location: CharacterLocationDataModel?
     let image: String?
-    let episodes: [String]?
+    let episode: [String]?
     let url: String?
     let created: String?
 }
@@ -88,7 +88,7 @@ extension CharacterDataModel {
                                     origin: originDomainModel,
                                     location: locationDomainModel,
                                     image: image ?? "",
-                                    episodes: episodes ?? [],
+                                    episodes: episode ?? [],
                                     url: url ?? "",
                                     created: created ?? "")
     }
