@@ -10,7 +10,7 @@ import Combine
 
 final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
-    // MARK: - Properties
+    // MARK: - Publishers
     
     @Published var characters: [CharacterModel] = []
     @Published var page: Int = .zero
@@ -21,14 +21,14 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Init
     
-    init (coordinator: AppCoordinator) {
+    init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
     }
     
     // MARK: - Life Cycle
     
-    override func onAppear() {
-        super.onAppear()
+    override func onAppear() async {
+        await super.onAppear()
         getCharacters()
     }
     
@@ -43,12 +43,12 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Action Functions
     
     func nextPage() {
-        self.page += 1
+        page += 1
         getCharacters()
     }
     
     func previewPage() {
-        self.page -= 1
+        page -= 1
         getCharacters()
     }
     
@@ -57,7 +57,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     private func getCharacters() {
         Task {
             do {
-                let response = try await getAllCharactersUseCase.execute(.init(page: self.page))
+                let response = try await self.getAllCharactersUseCase.execute(.init(page: self.page))
                 self.page = self.getPage(response.info.nextUrl)
                 self.transformModel(response.characters)
             } catch {
@@ -76,7 +76,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     }
     
     private func transformModel(_ characters: [CharacterDomainModel]) {
-        self.characters = characters.map { characterDomainModel in
+        let aux: [CharacterModel] = characters.map { characterDomainModel in
                 .init(id: characterDomainModel.id,
                       name: characterDomainModel.name,
                       status: characterDomainModel.status,
@@ -89,6 +89,8 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
                       locationId: getId(characterDomainModel.location.url),
                       episodesId: characterDomainModel.episodes)
         }
+        
+        self.characters = aux
     }
     
     private func getId(_ url: String) -> String {

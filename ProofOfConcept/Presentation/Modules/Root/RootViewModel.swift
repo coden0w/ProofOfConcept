@@ -17,13 +17,13 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
         super.init(coordinator: coordinator)
     }
     
-    override func onAppear() {
-        super.onAppear()
+    override func onAppear() async {
+        await super.onAppear()
         navigateToCharacters()
     }
     
-    override func onDisappear() {
-        super.onDisappear()
+    override func onDisappear() async {
+        await super.onDisappear()
     }
     
     func navigateToCharacters() {

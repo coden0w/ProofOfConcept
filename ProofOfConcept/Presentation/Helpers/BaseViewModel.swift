@@ -15,7 +15,7 @@ import Combine
  
  */
 @MainActor
-class BaseViewModel<T>: ObservableObject, @preconcurrency ViewLifeCycle {
+class BaseViewModel<T>: ObservableObject, ViewLifeCycle {
     
     private var _coordinator: (AppCoordinatorProtocol)?
     public var subscriptions = [AnyCancellable]()
@@ -28,11 +28,11 @@ class BaseViewModel<T>: ObservableObject, @preconcurrency ViewLifeCycle {
         self._coordinator = coordinator
     }
     
-    open func onAppear() {
+    open func onAppear() async {
         print("View calls onAppear \(String(describing: Self.self))")
     }
     
-    open func onDisappear() {
+    open func onDisappear() async {
         print("View calls onDisappear \(String(describing: Self.self))")
     }
     

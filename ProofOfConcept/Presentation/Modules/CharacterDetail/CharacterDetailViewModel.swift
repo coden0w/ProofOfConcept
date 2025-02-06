@@ -26,8 +26,8 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Life Cycle
     
-    override func onAppear() {
-        super.onAppear()
+    override func onAppear() async {
+        await super.onAppear()
     }
     
     // MARK: - NavigationFunctions
