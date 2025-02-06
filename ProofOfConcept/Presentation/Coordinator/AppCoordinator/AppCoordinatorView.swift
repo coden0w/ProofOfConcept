@@ -30,25 +30,31 @@ struct AppCoordinatorView: View {
 
 extension AppCoordinatorView {
     
-    @MainActor @ViewBuilder
+    @ViewBuilder
     private func buildPathDestionation(path: ScreenPath) -> some View {
         switch path {
         case .characters:
             charactersView()
+        case .characterDetail(let model):
+            characterDetailView(model: model)
         case .characterLocation(let location):
             characterLocationView(location: location)
         }
     }
     
-    @MainActor @ViewBuilder func initialView() -> some View {
+    @ViewBuilder func initialView() -> some View {
         RootView(viewModel: RootViewModel(coordinator: coordinator))
     }
     
-    @MainActor @ViewBuilder func charactersView() -> some View {
+    @ViewBuilder func charactersView() -> some View {
         CharactersView(viewModel: CharactersViewModel(coordinator: coordinator))
     }
     
-    @MainActor @ViewBuilder func characterLocationView(location: String) -> some View {
+    @ViewBuilder func characterDetailView(model: CharacterModel) -> some View {
+        CharacterDetailView(viewModel: CharacterDetailViewModel(coordinator: coordinator, character: model))
+    }
+    
+    @ViewBuilder func characterLocationView(location: String) -> some View {
         CharacterLocationView(viewModel: CharacterLocationViewModel(coordinator: coordinator, location: location))
     }
 }

@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 /*
+ DISCARD: NOT POSSIBLE TO SEND ASYNC DATA THROUGH PROPERTY WRAPPERS.
+ 
 @propertyWrapper
 actor Injected<T: Sendable> {
     
@@ -30,6 +32,9 @@ actor Injected<T: Sendable> {
 }
 */
 
+/*
+ Sendable: protocol to safty pass values between threads without data races
+ */
 final class Dependency: Sendable {
     
     static let shared = Dependency()

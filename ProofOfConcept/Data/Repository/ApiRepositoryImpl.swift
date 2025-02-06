@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
-
+/*
+ actor: isolate mutable status and guarantee secuencial access to prevent conflicts on concurrent environments
+ */
 public actor ApiRepositoryImpl: ApiRepository {
     
     private static var instance: ApiRepositoryImpl?

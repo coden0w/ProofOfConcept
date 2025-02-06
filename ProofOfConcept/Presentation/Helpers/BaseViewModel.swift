@@ -9,6 +9,11 @@ import Foundation
 import SwiftUI
 import Combine
 
+/*
+ @MainActor: Attribute to run code on the main thread essencial for the UI comunication and instatiation
+ @preconcurrency: mark preexisting code which is not adapted to the new concurrency model like a todo for migration from Swift 5 > Swift 6
+ 
+ */
 @MainActor
 class BaseViewModel<T>: ObservableObject, @preconcurrency ViewLifeCycle {
     
