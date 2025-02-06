@@ -15,7 +15,7 @@ struct AppCoordinatorView: View {
         NavigationStack(path: $coordinator.navigationPath) {
             initialView()
                 .navigationDestination(for: AnyHashable.self) { hashable in
-                    if let path = hashable as? AppCoordinator.Path {
+                    if let path = hashable as? ScreenPath {
                         buildPathDestionation(path: path)
                     } else {
                         Text("")
@@ -31,7 +31,7 @@ struct AppCoordinatorView: View {
 extension AppCoordinatorView {
     
     @MainActor @ViewBuilder
-    private func buildPathDestionation(path: AppCoordinator.Path) -> some View {
+    private func buildPathDestionation(path: ScreenPath) -> some View {
         switch path {
         case .characters:
             charactersView()

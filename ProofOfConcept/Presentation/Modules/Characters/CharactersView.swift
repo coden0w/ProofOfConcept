@@ -16,20 +16,45 @@ struct CharactersView: View {
     var body: some View {
         ZStack {
             VStack {
-                Button {
-                    viewModel.getCharacters()
-                } label: {
-                    Text("Ejecutame")
-                }
-
                 List(viewModel.characters) { item in
                     CharacterView(item)
                         .listRowSeparator(.hidden)
                         .onTapGesture {
-                            viewModel.navigateToCharacterLocation(location: item.location)
+                            viewModel.details(item.id)
                         }
                 }
                 .listStyle(.plain)
+                HStack {
+                    if viewModel.page > 1 {
+                        Button {
+                            viewModel.previewPage()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.left")
+                                Text("Back")
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.green)
+                    } else {
+                        Spacer()
+                    }
+                    Spacer()
+                    Text(viewModel.page.description)
+                        .font(.title2)
+                    Spacer()
+                    if viewModel.page < 42 {
+                        Button {
+                            viewModel.nextPage()
+                        } label: {
+                            Text("Next")
+                            Image(systemName: "chevron.right")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.green)
+                    }
+                }
+                .padding(.horizontal)
             }
         }
         .bind(viewModel: viewModel)
@@ -64,10 +89,18 @@ extension CharactersView {
                     Text(item.name)
                         .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(item.status)
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStackLayout(spacing: 5) {
+                        Text(item.status)
+                            .font(.caption)
+                        Circle()
+                            .frame(width: 8, height: 8, alignment: .center)
+                            .foregroundStyle(item.status == "Alive" ? .green : .red)
+                        Spacer()
+                    }
                 }
+                
+                Image(systemName: "chevron.right")
             }
         }
     }

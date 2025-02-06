@@ -8,11 +8,12 @@
 import Foundation
 import Combine
 
-final class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
+final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
     
     @Published var characters: [CharactersModel] = []
+    @Published var page: Int = .zero
     
     // MARK: - Dependencies
     
@@ -33,20 +34,42 @@ final class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
     
     // MARK: - Navigation Functions
     
-    func navigateToCharacterLocation(location: String) {
-        coordinator?.showCharacterLocation(location: location)
+    func details(_ id: Int) {
+//        coordinator?.showCharacterLocation(location: location)
+    }
+    
+    // MARK: - Action Functions
+    
+    func nextPage() {
+        self.page += 1
+        getCharacters()
+    }
+    
+    func previewPage() {
+        self.page -= 1
+        getCharacters()
     }
     
     // MARK: - Private Functions
     
-    func getCharacters() {
+    private func getCharacters() {
         Task {
             do {
-                let response = try await getAllCharactersUseCase.execute()
+                let response = try await getAllCharactersUseCase.execute(.init(page: self.page))
+                self.page = self.getPage(response.info.nextUrl)
                 self.transformModel(response.characters)
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    private func getPage(_ nextUrl: String) -> Int {
+        if let range = nextUrl.range(of: "page=(\\d+)", options: .regularExpression),
+           let pageNr = Int(nextUrl[range].replacingOccurrences(of: "page=", with: "")) {
+            return pageNr - 1
+        } else {
+            return .zero
         }
     }
     
@@ -55,8 +78,7 @@ final class CharactersViewModel: BaseViewModel<AppNavigationCoordinator> {
                 .init(id: characterDomainModel.id,
                       name: characterDomainModel.name,
                       status: characterDomainModel.status,
-                      image: characterDomainModel.image,
-                      location: characterDomainModel.location.url)
+                      image: characterDomainModel.image)
         }
     }
     

@@ -9,23 +9,40 @@ import Foundation
 import SwiftUI
 import Combine
 
-protocol AppNavigationCoordinator {
+// MARK: - ScreenPath
+
+enum ScreenPath: Hashable {
+    case characters
+    case characterLocation(String)
+}
+
+extension ScreenPath {
+    var identifier: String {
+        let desc = String(describing: self)
+        if let index = desc.firstIndex(of: "(") {
+            return String(desc[..<index])
+        } else {
+            return desc
+        }
+    }
+}
+
+// MARK: - AppNavigationCoordinator
+
+protocol AppCoordinatorProtocol {
     func showCharacters()
     func showCharacterLocation(location: String)
     func pop()
     func popToRoot()
-    func popToScreen(_ screen: AppCoordinator.Path)
+    func popToScreen(_ screen: ScreenPath)
 }
+
+// MARK: - AppCoordinator
 
 @Observable
 final class AppCoordinator: Identifiable {
     
     // MARK: - Navigation Paths
-    
-    enum Path: Hashable {
-        case characters
-        case characterLocation(String)
-    }
     
     // MARK: - Properties
     
@@ -39,14 +56,14 @@ final class AppCoordinator: Identifiable {
 
 // MARK: - Navigations
 
-extension AppCoordinator: AppNavigationCoordinator {
+extension AppCoordinator: AppCoordinatorProtocol {
     
     func showCharacters() {
-        navigationPath.append(Path.characters)
+        navigationPath.append(ScreenPath.characters)
     }
     
     func showCharacterLocation(location: String) {
-        navigationPath.append(Path.characterLocation(location))
+        navigationPath.append(ScreenPath.characterLocation(location))
     }
     
     func popToRoot() {
@@ -60,14 +77,19 @@ extension AppCoordinator: AppNavigationCoordinator {
         navigationPath.removeLast()
     }
     
-    func popToScreen(_ screen: AppCoordinator.Path) {
-        if let index = navigationPath.firstIndex(where: { $0 == screen as AnyHashable }) {
-            let removeLastItems = navigationPath.count - index - 1
-            navigationPath.removeLast(removeLastItems)
+    func popToScreen(_ screen: ScreenPath) {
+        if let index = navigationPath.firstIndex(where: { anyHashable in
+            if let path = anyHashable.base as? ScreenPath {
+                return path.identifier == screen.identifier
+            } else {
+                return false
+            }
+        }) {
+            let removeLastItem = navigationPath.count - index - 1
+            navigationPath.removeLast(removeLastItem)
         } else {
-            print("y una mierda")
+            print("💩 Could not pop to screen \(screen.identifier)")
         }
-        
     }
 }
 

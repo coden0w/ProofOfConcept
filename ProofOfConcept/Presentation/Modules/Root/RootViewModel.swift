@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class RootViewModel: BaseViewModel<AppNavigationCoordinator> {
+class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
     

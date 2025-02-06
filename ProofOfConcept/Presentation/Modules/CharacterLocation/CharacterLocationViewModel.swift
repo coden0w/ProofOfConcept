@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class CharacterLocationViewModel: BaseViewModel<AppNavigationCoordinator> {
+final class CharacterLocationViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
     
