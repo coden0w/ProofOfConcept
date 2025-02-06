@@ -18,6 +18,7 @@ struct CharactersView: View {
                 List(viewModel.characters) { item in
                     CharacterView(item)
                         .listRowSeparator(.hidden)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.details(item.id)
                         }

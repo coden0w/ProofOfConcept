@@ -14,7 +14,6 @@ import Combine
 enum ScreenPath: Hashable {
     case characters
     case characterDetail(CharacterModel)
-    case characterLocation(String)
 }
 
 extension ScreenPath {
@@ -33,7 +32,6 @@ extension ScreenPath {
 protocol AppCoordinatorProtocol {
     func showCharacters()
     func showCharacterDetail(_ character: CharacterModel)
-    func showCharacterLocation(location: String)
     func pop()
     func popToRoot()
     func popToScreen(_ screen: ScreenPath)
@@ -60,10 +58,6 @@ extension AppCoordinator: AppCoordinatorProtocol {
     
     func showCharacters() {
         navigationPath.append(ScreenPath.characters)
-    }
-    
-    func showCharacterLocation(location: String) {
-        navigationPath.append(ScreenPath.characterLocation(location))
     }
     
     func showCharacterDetail(_ character: CharacterModel) {

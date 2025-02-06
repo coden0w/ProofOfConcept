@@ -37,8 +37,6 @@ extension AppCoordinatorView {
             charactersView()
         case .characterDetail(let model):
             characterDetailView(model: model)
-        case .characterLocation(let location):
-            characterLocationView(location: location)
         }
     }
     
@@ -52,9 +50,5 @@ extension AppCoordinatorView {
     
     @ViewBuilder func characterDetailView(model: CharacterModel) -> some View {
         CharacterDetailView(viewModel: CharacterDetailViewModel(coordinator: coordinator, character: model))
-    }
-    
-    @ViewBuilder func characterLocationView(location: String) -> some View {
-        CharacterLocationView(viewModel: CharacterLocationViewModel(coordinator: coordinator, location: location))
     }
 }
