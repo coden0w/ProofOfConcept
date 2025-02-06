@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 struct CharactersView: View {
     
@@ -69,7 +68,7 @@ struct CharactersView: View {
 extension CharactersView {
     
     @ViewBuilder
-    private func CharacterView(_ item: CharactersModel) -> some View {
+    private func CharacterView(_ item: CharacterModel) -> some View {
         ZStack {
             HStack {
                 AsyncImage(url: URL(string: item.image)) { image in

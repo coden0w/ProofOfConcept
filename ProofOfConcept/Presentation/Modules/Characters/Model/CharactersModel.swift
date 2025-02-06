@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct CharactersModel: Identifiable {
-    let id: Int
-    let name: String
-    let status: String
-    let image: String
+struct CharacterModel: Identifiable, Hashable {
+    var id: Int = .zero
+    var name: String = ""
+    var status: String = ""
+    var image: String = ""
+    // Detail
+    var species: String = ""
+    var gender: String = ""
+    var originName: String = ""
+    var originId: String = ""
+    var locationName: String = ""
+    var locationId: String = ""
+    var episodesId: [String] = []
 }

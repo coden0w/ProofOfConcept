@@ -44,8 +44,6 @@ protocol AppCoordinatorProtocol {
 @Observable
 final class AppCoordinator: Identifiable {
     
-    // MARK: - Navigation Paths
-    
     // MARK: - Properties
     
     var navigationPath = [AnyHashable]()

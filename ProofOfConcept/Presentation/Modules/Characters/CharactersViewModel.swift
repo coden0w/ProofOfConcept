@@ -12,7 +12,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
     
-    @Published var characters: [CharactersModel] = []
+    @Published var characters: [CharacterModel] = []
     @Published var page: Int = .zero
     
     // MARK: - Dependencies
@@ -35,7 +35,9 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Navigation Functions
     
     func details(_ id: Int) {
-//        coordinator?.showCharacterLocation(location: location)
+        if let model = characters.first(where: { $0.id == id }) {
+            coordinator?.showCharacterDetail(model)
+        }
     }
     
     // MARK: - Action Functions
@@ -78,8 +80,20 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
                 .init(id: characterDomainModel.id,
                       name: characterDomainModel.name,
                       status: characterDomainModel.status,
-                      image: characterDomainModel.image)
+                      image: characterDomainModel.image,
+                      species: characterDomainModel.species,
+                      gender: characterDomainModel.gender,
+                      originName: characterDomainModel.origin.name,
+                      originId: getId(characterDomainModel.origin.url),
+                      locationName: characterDomainModel.location.name,
+                      locationId: getId(characterDomainModel.location.url),
+                      episodesId: characterDomainModel.episodes)
         }
+    }
+    
+    private func getId(_ url: String) -> String {
+        let splitUrl = url.split(separator: "/")
+        return String(splitUrl.last ?? "")
     }
     
 }
