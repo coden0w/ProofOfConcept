@@ -10,13 +10,13 @@ import Combine
 import SwiftUI
 
 protocol ViewLifeCycle {
-    func onAppear()
-    func onDisappear()
+    func onAppear() async
+    func onDisappear() async
 }
 
 extension View {
     func bind(lifeCycle: ViewLifeCycle) -> some View {
-        self.onAppear(perform: lifeCycle.onAppear)
-            .onDisappear(perform: lifeCycle.onDisappear)
+        self.onAppear { Task { await lifeCycle.onAppear() } }
+        .onDisappear { Task { await lifeCycle.onDisappear() } }
     }
 }

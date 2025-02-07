@@ -10,9 +10,9 @@ import Combine
 
 final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
-    // MARK: - Properties
+    // MARK: - Publishers
     
-    @Published var characters: [CharactersModel] = []
+    @Published var characters: [CharacterModel] = []
     @Published var page: Int = .zero
     
     // MARK: - Dependencies
@@ -21,32 +21,34 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Init
     
-    init (coordinator: AppCoordinator) {
+    init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
     }
     
     // MARK: - Life Cycle
     
-    override func onAppear() {
-        super.onAppear()
+    override func onAppear() async {
+        await super.onAppear()
         getCharacters()
     }
     
     // MARK: - Navigation Functions
     
     func details(_ id: Int) {
-//        coordinator?.showCharacterLocation(location: location)
+        if let model = characters.first(where: { $0.id == id }) {
+            coordinator?.showCharacterDetail(model)
+        }
     }
     
     // MARK: - Action Functions
     
     func nextPage() {
-        self.page += 1
+        page += 1
         getCharacters()
     }
     
     func previewPage() {
-        self.page -= 1
+        page -= 1
         getCharacters()
     }
     
@@ -55,7 +57,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     private func getCharacters() {
         Task {
             do {
-                let response = try await getAllCharactersUseCase.execute(.init(page: self.page))
+                let response = try await self.getAllCharactersUseCase.execute(.init(page: self.page))
                 self.page = self.getPage(response.info.nextUrl)
                 self.transformModel(response.characters)
             } catch {
@@ -74,12 +76,26 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     }
     
     private func transformModel(_ characters: [CharacterDomainModel]) {
-        self.characters = characters.map { characterDomainModel in
+        let aux: [CharacterModel] = characters.map { characterDomainModel in
                 .init(id: characterDomainModel.id,
                       name: characterDomainModel.name,
                       status: characterDomainModel.status,
-                      image: characterDomainModel.image)
+                      image: characterDomainModel.image,
+                      species: characterDomainModel.species,
+                      gender: characterDomainModel.gender,
+                      originName: characterDomainModel.origin.name,
+                      originId: getId(characterDomainModel.origin.url),
+                      locationName: characterDomainModel.location.name,
+                      locationId: getId(characterDomainModel.location.url),
+                      episodesId: characterDomainModel.episodes)
         }
+        
+        self.characters = aux
+    }
+    
+    private func getId(_ url: String) -> String {
+        let splitUrl = url.split(separator: "/")
+        return String(splitUrl.last ?? "")
     }
     
 }

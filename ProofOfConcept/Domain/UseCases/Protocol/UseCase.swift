@@ -9,8 +9,10 @@ import Foundation
 import Combine
 
 // MARK: - UseCaseProtocol (Domain)
-
-@preconcurrency
+/*
+ @unchecked disable automatic checks of the compiler
+ Sendable: protocol to safty pass values between threads without data races
+ */
 open class UseCaseProtocol<Input, Output>: @unchecked Sendable {
     
     public init() {

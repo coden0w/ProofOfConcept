@@ -1,5 +1,5 @@
 //
-//  GetCharacterDetailUseCase.swift
+//  GetCharacterLocationUseCase.swift
 //  ProofOfConcept
 //
 //  Created by Alexandru Robert Blaga on 30/1/25.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class GetCharacterDetailUseCase: UseCaseProtocol<CharacterLocationDetailRequestDomainModel, CharacterLocationDetailDomainModel> {
+final class GetCharacterLocationUseCase: UseCaseProtocol<CharacterLocationDetailRequestDomainModel, CharacterLocationDetailDomainModel> {
     
     private let repository: ApiRepository
     
@@ -18,6 +18,6 @@ final class GetCharacterDetailUseCase: UseCaseProtocol<CharacterLocationDetailRe
     
     override func handle(input: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
         print("🚀 GetCharacterDetailUseCase")
-        return try await repository.getCharacterDetail(requestModel: input)
+        return try await repository.getCharacterLocation(requestModel: input)
     }
 }
