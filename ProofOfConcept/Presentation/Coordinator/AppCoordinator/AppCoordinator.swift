@@ -6,95 +6,87 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
-
-// MARK: - ScreenPath
-
-enum ScreenPath: Hashable {
-    case characters
-    case characterDetail(CharacterModel)
-}
-
-extension ScreenPath {
-    var identifier: String {
-        let desc = String(describing: self)
-        if let index = desc.firstIndex(of: "(") {
-            return String(desc[..<index])
-        } else {
-            return desc
-        }
-    }
-}
-
-// MARK: - AppNavigationCoordinator
 
 protocol AppCoordinatorProtocol {
     func showCharacters()
     func showCharacterDetail(_ character: CharacterModel)
-    func pop()
-    func popToRoot()
-    func popToScreen(_ screen: ScreenPath)
 }
 
-// MARK: - AppCoordinator
-
-@Observable
-final class AppCoordinator: Identifiable {
+final class AppCoordinator: ObservableObject, Identifiable {
     
-    // MARK: - Properties
-    
-    var navigationPath = [AnyHashable]()
-    private var subscriptions = [AnyCancellable]()
+    @Published var rootNavigation = NavigationItem<RootViewModel>()
+    @Published var charactersNavigation = NavigationItem<CharactersViewModel>()
+    @Published var characterDetailNavigation = NavigationItem<CharacterDetailViewModel>()
     
     init() {
-        // Empty
+        /* Empty */
     }
+    
 }
 
-// MARK: - Navigations
-
-extension AppCoordinator: AppCoordinatorProtocol {
+extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
     
-    func showCharacters() {
-        navigationPath.append(ScreenPath.characters)
+    @MainActor func showRoot() {
+        let viewModel = RootViewModel(coordinator: self)
+        rootNavigation.navigate(to: viewModel)
     }
     
-    func showCharacterDetail(_ character: CharacterModel) {
-        navigationPath.append(ScreenPath.characterDetail(character))
-    }
-    
-    func popToRoot() {
-        navigationPath.removeAll()
-    }
-    
-    func pop() {
-        guard navigationPath.count > 1 else {
-            return
+    @MainActor func showCharacters() {
+        let viewModel = CharactersViewModel(coordinator: self)
+        charactersNavigation.navigate(to: viewModel) {
+            print("Characters screen dismissed")
         }
-        navigationPath.removeLast()
     }
     
-    func popToScreen(_ screen: ScreenPath) {
-        if let index = navigationPath.firstIndex(where: { anyHashable in
-            if let path = anyHashable.base as? ScreenPath {
-                return path.identifier == screen.identifier
-            } else {
-                return false
-            }
-        }) {
-            let removeLastItem = navigationPath.count - index - 1
-            navigationPath.removeLast(removeLastItem)
-        } else {
-            print("💩 Could not pop to screen \(screen.identifier)")
+    @MainActor func showCharacterDetail(_ character: CharacterModel) {
+        let viewModel = CharacterDetailViewModel(coordinator: self, character: character)
+        characterDetailNavigation.navigate(to: viewModel) {
+            print("Character detail screen dismissed")
         }
     }
 }
-
-// MARK: - Instance
 
 extension AppCoordinator {
     static var sample: AppCoordinator {
-        .init()
+        let coordinator = AppCoordinator()
+        return coordinator
+    }
+}
+
+struct NavigationItem<Object> {
+    
+    var onDismissAction: (() -> ())?
+    var viewModel: Object?
+    var isActive: Bool = false {
+        didSet {
+            if !isActive {
+                viewModel = nil
+                onDismissAction?()
+                onDismissAction = nil
+            }
+        }
+    }
+    
+    init(viewModel: Object? = nil,
+         isActive: Bool = false,
+         onDismissAction: (() -> ())? = nil) {
+        print("init: viewModel: \(String(describing: viewModel.self))")
+        print("init: isActive: \(String(describing: isActive))")
+        self.viewModel = viewModel
+        self.isActive = isActive
+        self.onDismissAction = nil
+    }
+    
+    mutating func navigate(to viewModel: Object,
+                           onDismissAction: (() -> ())? = nil) {
+        print("navigate: viewModel: \(String(describing: viewModel.self))")
+        isActive = true
+        self.viewModel = viewModel
+        self.onDismissAction = onDismissAction
+    }
+    
+    mutating func dismiss() {
+        isActive = false
     }
 }

@@ -27,9 +27,7 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     }
     
     func navigateToCharacters() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.coordinator?.showCharacters()
-        }
+        self.coordinator?.showCharacters()
     }
 }
 

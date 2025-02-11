@@ -9,8 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-@Observable
-open class BaseCoordinatorImpl: Identifiable {
+open class BaseCoordinatorImpl: ObservableObject, Identifiable {
     
     public init() {
         // Empty

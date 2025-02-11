@@ -13,7 +13,15 @@ struct RootView: View {
     
     var body: some View {
         ZStack {
-            Text("Splash")
+            VStack {
+                Text("Splash")
+                Button {
+                    viewModel.coordinator?.showCharacters()
+                } label: {
+                    Text("Go to Characters")
+                }
+
+            }
         }
         .bind(lifeCycle: viewModel)
     }

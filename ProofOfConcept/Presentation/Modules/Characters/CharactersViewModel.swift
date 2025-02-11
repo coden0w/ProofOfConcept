@@ -55,7 +55,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Private Functions
     
     private func getCharacters() {
-        Task {
+        Task { @MainActor in
             do {
                 let response = try await self.getAllCharactersUseCase.execute(.init(page: self.page))
                 self.page = self.getPage(response.info.nextUrl)

@@ -103,7 +103,7 @@ extension CharactersView {
                         .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    HStackLayout(spacing: Constants.five) {
+                    HStack(spacing: Constants.five) {
                         Text(item.status)
                             .font(.caption)
                         Circle()

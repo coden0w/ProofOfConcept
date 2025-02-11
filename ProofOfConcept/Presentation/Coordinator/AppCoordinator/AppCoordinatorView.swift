@@ -9,46 +9,61 @@ import SwiftUI
 
 struct AppCoordinatorView: View {
     
-    @State var coordinator: AppCoordinator
+    @ObservedObject var coordinator: AppCoordinator
     
     var body: some View {
-        NavigationStack(path: $coordinator.navigationPath) {
-            initialView()
-                .navigationDestination(for: AnyHashable.self) { hashable in
-                    if let path = hashable as? ScreenPath {
-                        buildPathDestionation(path: path)
-                    } else {
-                        Text("")
-                            .onAppear {
-                                assertionFailure("❌ Unexpected navigation destination received!")
-                            }
-                    }
+        NavigationView {
+            ZStack {
+                if let rootVM = coordinator.rootNavigation.viewModel {
+                    RootView(viewModel: rootVM)
+                        .navigation(isActive: $coordinator.charactersNavigation.isActive,
+                                    destination: { getCharactersView() })
+                    
                 }
+            }
         }
     }
 }
 
+// MARK: - Views
+
 extension AppCoordinatorView {
     
-    @ViewBuilder
-    private func buildPathDestionation(path: ScreenPath) -> some View {
-        switch path {
-        case .characters:
-            charactersView()
-        case .characterDetail(let model):
-            characterDetailView(model: model)
+    func getCharactersView() -> some View {
+        guard let vm = coordinator.charactersNavigation.viewModel else {
+            fatalError("Characters view model not set.")
         }
+        return CharactersView(viewModel: vm)
+            .navigation(isActive: $coordinator.characterDetailNavigation.isActive) {
+                getCharacterDetailView()
+            }
     }
     
-    @ViewBuilder func initialView() -> some View {
-        RootView(viewModel: RootViewModel(coordinator: coordinator))
+    func getCharacterDetailView() -> some View {
+        guard let vm = coordinator.characterDetailNavigation.viewModel else {
+            fatalError("Character detail view model not set.")
+        }
+        return CharacterDetailView(viewModel: vm)
     }
-    
-    @ViewBuilder func charactersView() -> some View {
-        CharactersView(viewModel: CharactersViewModel(coordinator: coordinator))
-    }
-    
-    @ViewBuilder func characterDetailView(model: CharacterModel) -> some View {
-        CharacterDetailView(viewModel: CharacterDetailViewModel(coordinator: coordinator, character: model))
+}
+
+// MARK: - Extensions
+
+public extension View {
+    func navigation<Destination: View>(isActive: Binding<Bool>,
+                                       @ViewBuilder destination: () -> Destination) -> some View {
+        overlay(
+            VStack(spacing: .zero) {
+                NavigationLink(
+                    destination: isActive.wrappedValue ? destination() : nil,
+                    isActive: isActive,
+                    label: { EmptyView() }
+                )
+                // Solve a bug https://www.hackingwithswift.com/forums/swiftui/pop-multiple-nested-views-using-navigationview-and-isactive/13747
+                .isDetailLink(false)
+                // Workaround https://forums.swift.org/t/14-5-beta3-navigationlink-unexpected-pop/45279/21
+                NavigationLink(destination: EmptyView(), label: {})
+            }
+        )
     }
 }

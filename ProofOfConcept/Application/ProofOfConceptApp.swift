@@ -10,11 +10,14 @@ import SwiftUI
 @main
 struct ProofOfConceptApp: App {
     
-    @State var coordinator = AppCoordinator.sample
+    @StateObject var coordinator = AppCoordinator.sample
     
     var body: some Scene {
         WindowGroup {
             AppCoordinatorView(coordinator: coordinator)
+                .onAppear {
+                    coordinator.showRoot()
+                }
         }
     }
 }
