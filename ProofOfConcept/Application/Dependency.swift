@@ -13,21 +13,21 @@ import Foundation
 final class Dependency: Sendable {
     static let shared = Dependency()
 
-    func getAllCharactersUseCase() -> GetAllCharactersUseCase {
-        GetAllCharactersUseCase(repository: getApiRepository())
+    var getAllCharactersUseCase: GetAllCharactersUseCase {
+        GetAllCharactersUseCase(repository: self.apiRepository)
     }
     
-    func getCharacterLocationUseCase() -> GetCharacterLocationUseCase {
-        GetCharacterLocationUseCase(repository: getApiRepository())
+    var getCharacterLocationUseCase: GetCharacterLocationUseCase {
+        GetCharacterLocationUseCase(repository: self.apiRepository)
     }
     
-    func getCharacterEpisodeUseCase() -> GetCharacterEpisodeUseCase {
-        GetCharacterEpisodeUseCase(repository: getApiRepository())
+    var getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase {
+        GetCharacterEpisodeUseCase(repository: self.apiRepository)
     }
 }
 
 extension Dependency {
-    private func getApiRepository() -> ApiRepository { // Configure here the environment
+    private var apiRepository: ApiRepository {
         ApiRepositoryImpl(baseURL: "https://rickandmortyapi.com")
     }
 }

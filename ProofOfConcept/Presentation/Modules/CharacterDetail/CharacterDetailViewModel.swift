@@ -26,8 +26,8 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     init(coordinator: AppCoordinator,
          character: CharacterModel,
-         getCharacterLocationUseCase: GetCharacterLocationUseCase = Dependency.shared.getCharacterLocationUseCase(),
-         getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase = Dependency.shared.getCharacterEpisodeUseCase()) {
+         getCharacterLocationUseCase: GetCharacterLocationUseCase = Dependency.shared.getCharacterLocationUseCase,
+         getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase = Dependency.shared.getCharacterEpisodeUseCase) {
         self.character = character
         self.getCharacterLocationUseCase = getCharacterLocationUseCase
         self.getCharacterEpisodeUseCase = getCharacterEpisodeUseCase

@@ -22,7 +22,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Init
     
     init(coordinator: AppCoordinator,
-         getAllCharactersUseCase: GetAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase()) {
+         getAllCharactersUseCase: GetAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase) {
         self.getAllCharactersUseCase = getAllCharactersUseCase
         super.init(coordinator: coordinator)
     }
