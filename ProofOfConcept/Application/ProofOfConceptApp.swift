@@ -11,6 +11,7 @@ import SwiftUI
 struct ProofOfConceptApp: App {
     
     @StateObject var coordinator = AppCoordinator.sample
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
         WindowGroup {

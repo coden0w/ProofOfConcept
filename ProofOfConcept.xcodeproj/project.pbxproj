@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D2C47AEA2D5DDAAC005B9FA5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */; };
+		D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D2C47AEB2D5DDAAC005B9FA5 /* FirebaseMessaging */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D2E606F42D4A3CA400D0A0B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +34,22 @@
 		D2E606FD2D4A3CA400D0A0B7 /* ProofOfConceptUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProofOfConceptUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D2C47B2C2D5DE902005B9FA5 /* Exceptions for "ProofOfConcept" folder in "ProofOfConcept" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D2E606E22D4A3CA200D0A0B7 /* ProofOfConcept */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D2C47B2C2D5DE902005B9FA5 /* Exceptions for "ProofOfConcept" folder in "ProofOfConcept" target */,
+			);
 			path = ProofOfConcept;
 			sourceTree = "<group>";
 		};
@@ -52,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */,
+				D2C47AEA2D5DDAAC005B9FA5 /* FirebaseCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +92,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D2C47AE82D5DDAAC005B9FA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D2E606DA2D4A3CA200D0A0B7 = {
 			isa = PBXGroup;
 			children = (
 				D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */,
 				D2E606F62D4A3CA400D0A0B7 /* ProofOfConceptTests */,
 				D2E607002D4A3CA400D0A0B7 /* ProofOfConceptUITests */,
+				D2C47AE82D5DDAAC005B9FA5 /* Frameworks */,
 				D2E606E42D4A3CA200D0A0B7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +140,8 @@
 			);
 			name = ProofOfConcept;
 			packageProductDependencies = (
+				D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */,
+				D2C47AEB2D5DDAAC005B9FA5 /* FirebaseMessaging */,
 			);
 			productName = ProofOfConcept;
 			productReference = D2E606E32D4A3CA200D0A0B7 /* ProofOfConcept.app */;
@@ -196,6 +226,7 @@
 			mainGroup = D2E606DA2D4A3CA200D0A0B7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				D2C47AE52D5DD992005B9FA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D2E606E42D4A3CA200D0A0B7 /* Products */;
@@ -401,6 +432,7 @@
 				DEVELOPMENT_TEAM = B4C6WGV28H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProofOfConcept/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -412,7 +444,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coden0w.ProofOfConcept;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plexus.ProofOfConcept;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -431,6 +463,7 @@
 				DEVELOPMENT_TEAM = B4C6WGV28H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProofOfConcept/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -442,7 +475,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.coden0w.ProofOfConcept;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plexus.ProofOfConcept;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -562,6 +595,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D2C47AE52D5DD992005B9FA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2C47AE52D5DD992005B9FA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		D2C47AEB2D5DDAAC005B9FA5 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2C47AE52D5DD992005B9FA5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D2E606DB2D4A3CA200D0A0B7 /* Project object */;
 }
