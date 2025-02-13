@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Publishers
