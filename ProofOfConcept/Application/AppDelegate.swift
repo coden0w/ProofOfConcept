@@ -10,7 +10,6 @@ import SwiftUI
 import FirebaseCore
 import FirebaseMessaging
 
-@MainActor
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
@@ -33,27 +32,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("[UNUserNotificationCenter] -> Error to register: \(error.localizedDescription)")
     }
-
+    
+    func requestNotificationAuthorization() {
+        Task {
+            let notificationCenterStatus = UNUserNotificationCenter.current()
+            notificationCenterStatus.delegate = self
+            do {
+                 let granted = try await notificationCenterStatus.requestAuthorization(options: [.alert, .badge, .sound])
+                guard granted else {
+                    print("[UNUserNotificationCenter] -> Permission status: \(granted)")
+                    return
+                }
+            } catch {
+                print("[UNUserNotificationCenter] -> Error trying to request Notification Authorization \(error)")
+            }
+        }
+    }
+    
 }
 
 // MARK: - Extensions
 
 extension AppDelegate: @preconcurrency UNUserNotificationCenterDelegate, @preconcurrency MessagingDelegate {
-    
-    fileprivate func requestNotificationAuthorization() {
-        let notificationCenterStatus = UNUserNotificationCenter.current()
-        notificationCenterStatus.delegate = self
-        notificationCenterStatus.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-            if let error {
-                print("[UNUserNotificationCenter] -> Error trying to request Notification Authorization \(error)")
-                return
-            }
-            guard granted else {
-                print("[UNUserNotificationCenter] -> Permission status: \(granted)")
-                return
-            }
-        }
-    }
     
     // MARK: - UNUserNotificationCenterDelegate
     
@@ -77,5 +77,4 @@ extension AppDelegate: @preconcurrency UNUserNotificationCenterDelegate, @precon
         guard let fcmToken else { return }
         print("[MessagingDelegate] -> FCM Token: \(fcmToken)")
     }
-    
 }

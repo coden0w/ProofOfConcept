@@ -28,7 +28,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D2C47BCA2D5DF19D005B9FA5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		D2C47BBC2D5DF19D005B9FA5 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		D2C47BBE2D5DF19D005B9FA5 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		D2E606E32D4A3CA200D0A0B7 /* ProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2E606F32D4A3CA400D0A0B7 /* ProofOfConceptTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProofOfConceptTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2E606FD2D4A3CA400D0A0B7 /* ProofOfConceptUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProofOfConceptUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +60,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		D2C47BC02D5DF19D005B9FA5 /* asd */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = asd;
+			sourceTree = "<group>";
+		};
 		D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -95,6 +115,8 @@
 		D2C47AE82D5DDAAC005B9FA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2C47BBC2D5DF19D005B9FA5 /* UserNotifications.framework */,
+				D2C47BBE2D5DF19D005B9FA5 /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -105,6 +127,7 @@
 				D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */,
 				D2E606F62D4A3CA400D0A0B7 /* ProofOfConceptTests */,
 				D2E607002D4A3CA400D0A0B7 /* ProofOfConceptUITests */,
+				D2C47BC02D5DF19D005B9FA5 /* asd */,
 				D2C47AE82D5DDAAC005B9FA5 /* Frameworks */,
 				D2E606E42D4A3CA200D0A0B7 /* Products */,
 			);
@@ -130,6 +153,7 @@
 				D2E606DF2D4A3CA200D0A0B7 /* Sources */,
 				D2E606E02D4A3CA200D0A0B7 /* Frameworks */,
 				D2E606E12D4A3CA200D0A0B7 /* Resources */,
+				D2C47BCA2D5DF19D005B9FA5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -426,10 +450,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ProofOfConcept/ProofOfConcept.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ProofOfConcept/Preview Content\"";
-				DEVELOPMENT_TEAM = B4C6WGV28H;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ProofOfConcept/Info.plist;
@@ -457,10 +482,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ProofOfConcept/ProofOfConcept.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ProofOfConcept/Preview Content\"";
-				DEVELOPMENT_TEAM = B4C6WGV28H;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ProofOfConcept/Info.plist;
