@@ -18,8 +18,8 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Dependencies
     
-    private var getCharacterLocationUseCase: GetCharacterLocationUseCase
-    private var getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase
+    private let getCharacterLocationUseCase: GetCharacterLocationUseCase
+    private let getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase
     
     // MARK: - Init
     

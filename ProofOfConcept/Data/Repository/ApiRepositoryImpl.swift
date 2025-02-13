@@ -37,7 +37,7 @@ actor ApiRepositoryImpl: ApiRepository {
                                                        queryParams: ["page": "\(requestModel.page)"])
             let request = request(url: url, method: .get)
             let response = try await response(request: request)
-            try self.checkResponse(response)
+            try checkResponse(response)
             let domainModel = try CharactersDataModel(data: response.0).parseToDomainModel()
             return domainModel
         } catch {
@@ -50,7 +50,7 @@ actor ApiRepositoryImpl: ApiRepository {
             let url = try RepositoryConstants.buildURL(stringURL: "\(baseURL)/api/location/\(requestModel.location)")
             let request = request(url: url, method: .get)
             let response = try await response(request: request)
-            try self.checkResponse(response)
+            try checkResponse(response)
             let domainModel = try CharacterLocationDetailDataModel(data: response.0).parseToDomainModel()
             return domainModel
         } catch {

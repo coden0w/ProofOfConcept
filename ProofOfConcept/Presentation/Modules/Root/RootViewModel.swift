@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties

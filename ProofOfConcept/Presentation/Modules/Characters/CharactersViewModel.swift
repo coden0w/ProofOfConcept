@@ -16,7 +16,7 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Dependencies
     
-    private var getAllCharactersUseCase: GetAllCharactersUseCase
+    private let getAllCharactersUseCase: GetAllCharactersUseCase
     
     // MARK: - Init
     
