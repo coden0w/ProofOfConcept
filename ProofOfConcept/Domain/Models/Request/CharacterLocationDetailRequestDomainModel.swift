@@ -7,11 +7,10 @@
 
 import Foundation
 
-public struct CharacterLocationDetailRequestDomainModel: Sendable {
-    
-    public let location: String
-    
-    public init(location: String) {
+struct CharacterLocationDetailRequestDomainModel: Sendable {
+    let location: String
+
+    init(location: String) {
         self.location = location
     }
 }

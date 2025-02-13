@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Combine
 
+@MainActor
 final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
@@ -19,14 +19,18 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Dependencies
     
-    private let getCharacterLocationUseCase: GetCharacterLocationUseCase = Dependency.shared.getCharacterLocationUseCase()
-    private let getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase = Dependency.shared.getCharacterEpisodeUseCase()
+    private var getCharacterLocationUseCase: GetCharacterLocationUseCase
+    private var getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase
     
     // MARK: - Init
     
     init(coordinator: AppCoordinator,
-         character: CharacterModel) {
+         character: CharacterModel,
+         getCharacterLocationUseCase: GetCharacterLocationUseCase = Dependency.shared.getCharacterLocationUseCase(),
+         getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase = Dependency.shared.getCharacterEpisodeUseCase()) {
         self.character = character
+        self.getCharacterLocationUseCase = getCharacterLocationUseCase
+        self.getCharacterEpisodeUseCase = getCharacterEpisodeUseCase
         super.init(coordinator: coordinator)
     }
     
@@ -43,9 +47,9 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
     func locations() {
         Task {
             do {
-                let responseOrigin = try await self.getCharacterLocationUseCase.execute(.init(location: self.character.originId))
+                let responseOrigin: CharacterLocationDetailDomainModel = try await self.getCharacterLocationUseCase.execute(CharacterLocationDetailRequestDomainModel(location: self.character.originId))
                 self.transformLocationModel(responseOrigin)
-                let responseLocation = try await self.getCharacterLocationUseCase.execute(.init(location: self.character.locationId))
+                let responseLocation: CharacterLocationDetailDomainModel = try await self.getCharacterLocationUseCase.execute(CharacterLocationDetailRequestDomainModel(location: self.character.locationId))
                 self.transformLocationModel(responseLocation, isOrigin: false)
             } catch {
                 print(error)
@@ -57,7 +61,7 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
         Task {
             do {
                 guard let episodeId = self.character.episodesId.first else { return }
-                let response = try await self.getCharacterEpisodeUseCase.execute(.init(episode: episodeId))
+                let response: CharacterEpisodeDetailDomainModel = try await self.getCharacterEpisodeUseCase.execute(CharacterEpisodeDetailRequestDomainModel(episode: episodeId))
                 self.transformEpisodeModel(response)
             } catch {
                 print(error)
@@ -91,17 +95,17 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
 
 extension CharacterDetailViewModel {
     static var sample: CharacterDetailViewModel {
-        return CharacterDetailViewModel(coordinator: .sample, character: .init(id: 1,
-                                                                               name: "Rick Sanchez",
-                                                                               status: "Alive",
-                                                                               image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-                                                                               species: "Human",
-                                                                               gender: "Male",
-                                                                               originName: "Earth (C-137)",
-                                                                               originId: "1",
-                                                                               locationName: "Citadel of Ricks",
-                                                                               locationId: "3",
-                                                                               episodesId: ["https://rickandmortyapi.com/api/episode/28",
-                                                                                            "https://rickandmortyapi.com/api/episode/51"]))
+        CharacterDetailViewModel(coordinator: .sample, character: .init(id: 1,
+                                                                        name: "Rick Sanchez",
+                                                                        status: "Alive",
+                                                                        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                                                                        species: "Human",
+                                                                        gender: "Male",
+                                                                        originName: "Earth (C-137)",
+                                                                        originId: "1",
+                                                                        locationName: "Citadel of Ricks",
+                                                                        locationId: "3",
+                                                                        episodesId: ["https://rickandmortyapi.com/api/episode/28",
+                                                                                     "https://rickandmortyapi.com/api/episode/51"]))
     }
 }

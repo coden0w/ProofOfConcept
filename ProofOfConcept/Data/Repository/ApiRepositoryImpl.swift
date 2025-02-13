@@ -6,17 +6,16 @@
 //
 
 import Foundation
-import Combine
 
 /*
  actor: isolate mutable status and guarantee secuencial access to prevent conflicts on concurrent environments
  */
-public actor ApiRepositoryImpl: ApiRepository {
-    
+
+actor ApiRepositoryImpl: ApiRepository {
     private static var instance: ApiRepositoryImpl?
-    public var baseURL: String
+    var baseURL: String
     
-    public static func shared(baseURL: String) -> ApiRepository {
+    static func shared(baseURL: String) -> ApiRepository {
         if let instance = ApiRepositoryImpl.instance {
             return instance
         } else {
@@ -30,15 +29,15 @@ public actor ApiRepositoryImpl: ApiRepository {
         self.baseURL = baseURL
     }
     
-    @BGActor public func getAllCharacters(requestModel: CharactersRequestDomainModel) async throws -> CharactersDomainModel {
+    func getAllCharacters(requestModel: CharactersRequestDomainModel) async throws -> CharactersDomainModel {
         do {
-            let url = try await RepositoryConstants.buildURL(baseURL: baseURL,
-                                                             paths: [.api],
-                                                             endpoint: .character,
-                                                             queryParams: ["page": "\(requestModel.page)"])
+            let url = try RepositoryConstants.buildURL(baseURL: baseURL,
+                                                       paths: [.api],
+                                                       endpoint: .character,
+                                                       queryParams: ["page": "\(requestModel.page)"])
             let request = request(url: url, method: .get)
             let response = try await response(request: request)
-            try checkResponse(response)
+            try self.checkResponse(response)
             let domainModel = try CharactersDataModel(data: response.0).parseToDomainModel()
             return domainModel
         } catch {
@@ -46,12 +45,12 @@ public actor ApiRepositoryImpl: ApiRepository {
         }
     }
     
-    @BGActor public func getCharacterLocation(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
-        do { // 3
-            let url = try await RepositoryConstants.buildURL(stringURL: "\(baseURL)/api/location/\(requestModel.location)")
+    func getCharacterLocation(requestModel: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
+        do {
+            let url = try RepositoryConstants.buildURL(stringURL: "\(baseURL)/api/location/\(requestModel.location)")
             let request = request(url: url, method: .get)
             let response = try await response(request: request)
-            try checkResponse(response)
+            try self.checkResponse(response)
             let domainModel = try CharacterLocationDetailDataModel(data: response.0).parseToDomainModel()
             return domainModel
         } catch {
@@ -59,7 +58,7 @@ public actor ApiRepositoryImpl: ApiRepository {
         }
     }
     
-    @BGActor public func getCharacterEpisode(requestModel: CharacterEpisodeDetailRequestDomainModel) async throws -> CharacterEpisodeDetailDomainModel {
+    func getCharacterEpisode(requestModel: CharacterEpisodeDetailRequestDomainModel) async throws -> CharacterEpisodeDetailDomainModel {
         do {
             let url = try RepositoryConstants.buildURL(stringURL: requestModel.episode)
             let request = request(url: url, method: .get)
@@ -89,7 +88,7 @@ extension ApiRepositoryImpl {
         case none = ""
     }
     
-    @BGActor func request(url: URL, method: RequestType, encoding: EncodingType = .none) -> URLRequest {
+    func request(url: URL, method: RequestType, encoding: EncodingType = .none) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         if encoding != .none {
@@ -98,17 +97,17 @@ extension ApiRepositoryImpl {
         return request
     }
     
-    @BGActor func response(request: URLRequest) async throws -> (Data, URLResponse) {
+    func response(request: URLRequest) async throws -> (Data, URLResponse) {
         do {
             let result = try await URLSession.shared.data(for: request)
-            try checkResponse(result)
+            try self.checkResponse(result)
             return result
         } catch {
             throw error
         }
     }
     
-    @BGActor func checkResponse(_ result: (Data, URLResponse)) throws {
+    func checkResponse(_ result: (Data, URLResponse)) throws {
         let (_, response) = result
         if let httpResponse = response as? HTTPURLResponse {
             switch httpResponse.statusCode {

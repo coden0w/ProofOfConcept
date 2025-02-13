@@ -7,11 +7,10 @@
 
 import Foundation
 
-public struct CharactersRequestDomainModel: Sendable {
-    
-    public let page: Int
-    
-    public init(page: Int) {
+struct CharactersRequestDomainModel: Sendable {
+    let page: Int
+
+    init(page: Int) {
         self.page = page
     }
 }

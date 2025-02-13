@@ -7,25 +7,24 @@
 
 import Foundation
 
-struct RepositoryConstants {
+actor RepositoryConstants {
     enum PathUrl: String {
-        case api = "api"
+        case api
         case none = ""
     }
 
     enum EndpointUrl: String {
-        case character = "character"
-        case location = "location"
-        case episode = "episode"
+        case character
+        case location
+        case episode
         case none = ""
     }
-    
-    @BGActor static func buildURL(stringURL: String? = nil,
-                                  baseURL: String = "",
-                                  paths: [PathUrl] = [],
-                                  endpoint: EndpointUrl = .none,
-                                  queryParams: [String: String] = [:]) throws -> URL {
-        
+
+    static func buildURL(stringURL: String? = nil,
+                         baseURL: String = "",
+                         paths: [PathUrl] = [],
+                         endpoint: EndpointUrl = .none,
+                         queryParams: [String: String] = [:]) throws -> URL {
         if let stringURL = stringURL, let url = URL(string: stringURL) {
             return url
         }
@@ -52,7 +51,7 @@ struct RepositoryConstants {
         guard let url = urlComponents.url else {
             throw NSError(domain: "Bad Url Error", code: 3, userInfo: nil)
         }
-        
+
         return url
     }
 }

@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct CharactersView: View {
-    
     @ObservedObject var viewModel: CharactersViewModel
     @State private var imagePreview: Image = .init("")
     @State private var isPresentedPreview: Bool = false

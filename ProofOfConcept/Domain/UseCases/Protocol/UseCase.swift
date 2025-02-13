@@ -6,31 +6,22 @@
 //
 
 import Foundation
-import Combine
 
 // MARK: - UseCaseProtocol (Domain)
 /*
- @unchecked disable automatic checks of the compiler
  Sendable: protocol to safty pass values between threads without data races
  */
-open class UseCaseProtocol<Input, Output>: @unchecked Sendable {
-    
-    public init() {
-        // Empty
-    }
-        
-    open func execute(_ input: Input) async throws -> Output {
-        try await handle(input: input)
-    }
-    
-    open func handle(input: Input) async throws -> Output {
-        throw NSError(domain: "Not implemented. Override it in subclass.", code: 0)
-    }
+protocol UseCaseProtocol: Sendable {
+    func execute<Input, Output>(_ input: Input) async throws -> Output where Input : Sendable, Output : Sendable
+    func handle<Input, Output>(input: Input) async throws -> Output where Input : Sendable, Output : Sendable
 }
 
-extension UseCaseProtocol where Input == Void {
-    
-    public func execute() async throws -> Output {
-        try await execute(())
+extension UseCaseProtocol {
+    func execute<Input: Sendable, Output: Sendable>(_ input: Input) async throws -> Output {
+        try await handle(input: input)
+    }
+
+    func handle<Input: Sendable, Output: Sendable>(input: Input) async throws -> Output {
+        throw NSError(domain: "Not implemented. Override it in subclass.", code: 0)
     }
 }

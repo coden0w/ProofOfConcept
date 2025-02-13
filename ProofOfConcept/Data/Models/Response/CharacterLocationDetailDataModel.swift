@@ -25,12 +25,12 @@ extension CharacterLocationDetailDataModel {
     }
     
     func parseToDomainModel() -> CharacterLocationDetailDomainModel {
-        return CharacterLocationDetailDomainModel(id: id ?? .zero,
-                                                  name: name ?? "",
-                                                  type: type ?? "",
-                                                  dimension: dimension ?? "",
-                                                  residents: residents ?? [],
-                                                  url: url ?? "",
-                                                  created: created ?? "")
+        CharacterLocationDetailDomainModel(id: id ?? .zero,
+                                           name: name ?? "",
+                                           type: type ?? "",
+                                           dimension: dimension ?? "",
+                                           residents: residents ?? [],
+                                           url: url ?? "",
+                                           created: created ?? "")
     }
 }

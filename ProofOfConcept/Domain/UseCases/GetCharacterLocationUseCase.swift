@@ -6,18 +6,19 @@
 //
 
 import Foundation
-import Combine
 
-final class GetCharacterLocationUseCase: UseCaseProtocol<CharacterLocationDetailRequestDomainModel, CharacterLocationDetailDomainModel> {
-    
+actor GetCharacterLocationUseCase: UseCaseProtocol {
     private let repository: ApiRepository
-    
-    public init(repository: ApiRepository) {
+
+    init(repository: ApiRepository) {
         self.repository = repository
     }
-    
-    override func handle(input: CharacterLocationDetailRequestDomainModel) async throws -> CharacterLocationDetailDomainModel {
-        print("🚀 GetCharacterDetailUseCase")
-        return try await repository.getCharacterLocation(requestModel: input)
+
+    func handle<Input, Output>(input: Input) async throws -> Output where Input : Sendable, Output : Sendable {
+        guard let input = input as? CharacterLocationDetailRequestDomainModel,
+              let output = try await repository.getCharacterLocation(requestModel: input) as? Output else {
+            fatalError("Unable to cast output")
+        }
+        return output
     }
 }

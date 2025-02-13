@@ -49,7 +49,7 @@ extension AppCoordinatorView {
 
 // MARK: - Extensions
 
-public extension View {
+extension View {
     func navigation<Destination: View>(isActive: Binding<Bool>,
                                        @ViewBuilder destination: () -> Destination) -> some View {
         overlay(
