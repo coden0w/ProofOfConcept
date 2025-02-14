@@ -8,7 +8,6 @@
 import Foundation
 
 struct CharacterEpisodeDetailDataModel: Codable {
-    
     let id: Int?
     let name: String?
     let onAir: String?
@@ -26,15 +25,17 @@ struct CharacterEpisodeDetailDataModel: Codable {
         case url
         case created
     }
+    
+    static func get(episode: String) throws -> Resource<CharacterEpisodeDetailDataModel> {
+        guard let url = try URL.fetch(path: "/api/episode/\(episode)/") else {
+            throw NetworkError.badUrl
+        }
+        return Resource(url: url)
+    }
 }
 
 extension CharacterEpisodeDetailDataModel {
-    
-    init(data: Data) throws {
-        self = try JSONDecoder().decode(CharacterEpisodeDetailDataModel.self, from: data)
-    }
-    
-    func parseToDomainModel() -> CharacterEpisodeDetailDomainModel {
+    var toParseToDomainModel: CharacterEpisodeDetailDomainModel {
         CharacterEpisodeDetailDomainModel(
             id: id ?? .zero,
             name: name ?? "",

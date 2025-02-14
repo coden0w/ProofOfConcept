@@ -21,7 +21,7 @@ import Testing
             let response: CharacterLocationDetailDomainModel = try await mockUseCase.execute(CharacterLocationDetailRequestDomainModel(location: ""))
 
             // Assert
-            #expect(await response.id == mockCharacter.id)
+            #expect(response.id == mockCharacter.id)
         }
     }
 }
