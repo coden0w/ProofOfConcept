@@ -8,7 +8,6 @@
 import Foundation
 
 struct CharacterLocationDetailDomainModel: Sendable {
-    
     let id: Int
     let name: String
     let type: String
