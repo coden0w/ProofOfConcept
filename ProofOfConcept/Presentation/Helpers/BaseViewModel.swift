@@ -7,32 +7,29 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 /*
  @MainActor: Attribute to run code on the main thread essencial for the UI comunication and instatiation
- @preconcurrency: mark preexisting code which is not adapted to the new concurrency model like a todo for migration from Swift 5 > Swift 6
  
  */
+
 @MainActor
 class BaseViewModel<T>: ObservableObject, ViewLifeCycle {
-    
     private var _coordinator: (AppCoordinatorProtocol)?
-    public var subscriptions = [AnyCancellable]()
     
-    public var coordinator: T? {
+    var coordinator: T? {
         _coordinator as? T
     }
     
-    public init(coordinator: AppCoordinatorProtocol) {
+    init(coordinator: AppCoordinatorProtocol) {
         self._coordinator = coordinator
     }
     
-    open func onAppear() async {
+    func onAppear() async {
         print("View calls onAppear \(String(describing: Self.self))")
     }
     
-    open func onDisappear() async {
+    func onDisappear() async {
         print("View calls onDisappear \(String(describing: Self.self))")
     }
     

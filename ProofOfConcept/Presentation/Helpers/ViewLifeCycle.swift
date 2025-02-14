@@ -16,7 +16,13 @@ protocol ViewLifeCycle {
 
 extension View {
     func bind(lifeCycle: ViewLifeCycle) -> some View {
-        self.onAppear { Task { await lifeCycle.onAppear() } }
-        .onDisappear { Task { await lifeCycle.onDisappear() } }
+        task {
+            await lifeCycle.onAppear()
+        }
+        .onDisappear {
+            Task {
+                await lifeCycle.onDisappear()
+            }
+        }
     }
 }

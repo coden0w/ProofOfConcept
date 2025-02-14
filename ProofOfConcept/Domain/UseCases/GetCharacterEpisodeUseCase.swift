@@ -6,17 +6,19 @@
 //
 
 import Foundation
-import Combine
 
-final class GetCharacterEpisodeUseCase: UseCaseProtocol<CharacterEpisodeDetailRequestDomainModel, CharacterEpisodeDetailDomainModel> {
-    
+actor GetCharacterEpisodeUseCase: UseCaseProtocol {
     private let repository: ApiRepository
-    
-    public init(repository: ApiRepository) {
+
+    init(repository: ApiRepository) {
         self.repository = repository
     }
-    
-    override func handle(input: CharacterEpisodeDetailRequestDomainModel) async throws -> CharacterEpisodeDetailDomainModel {
-        return try await repository.getCharacterEpisode(requestModel: input)
+
+    func handle<Input, Output>(input: Input) async throws -> Output where Input : Sendable, Output : Sendable {
+        guard let input = input as? CharacterEpisodeDetailRequestDomainModel,
+              let output = try await repository.getCharacterEpisode(requestModel: input) as? Output else {
+            fatalError("Unable to cast output")
+        }
+        return output
     }
 }

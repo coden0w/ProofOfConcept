@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RootView: View {
-    
     @ObservedObject var viewModel: RootViewModel
     
     var body: some View {

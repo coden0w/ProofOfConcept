@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
@@ -17,11 +16,13 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Dependencies
     
-    private let getAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase()
+    private let getAllCharactersUseCase: GetAllCharactersUseCase
     
     // MARK: - Init
     
-    init(coordinator: AppCoordinator) {
+    init(coordinator: AppCoordinator,
+         getAllCharactersUseCase: GetAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase) {
+        self.getAllCharactersUseCase = getAllCharactersUseCase
         super.init(coordinator: coordinator)
     }
     
@@ -55,9 +56,9 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Private Functions
     
     private func getCharacters() {
-        Task { @MainActor in
+        Task {
             do {
-                let response = try await self.getAllCharactersUseCase.execute(.init(page: self.page))
+                let response: CharactersDomainModel = try await self.getAllCharactersUseCase.execute(CharactersRequestDomainModel(page: self.page))
                 self.page = self.getPage(response.info.nextUrl)
                 self.transformModel(response.characters)
             } catch {
@@ -102,6 +103,6 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
 
 extension CharactersViewModel {
     static var sample: CharactersViewModel {
-        return CharactersViewModel(coordinator: .sample)
+        CharactersViewModel(coordinator: .sample)
     }
 }

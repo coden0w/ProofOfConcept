@@ -35,7 +35,7 @@ extension CharacterEpisodeDetailDataModel {
     }
     
     func parseToDomainModel() -> CharacterEpisodeDetailDomainModel {
-        return CharacterEpisodeDetailDomainModel(
+        CharacterEpisodeDetailDomainModel(
             id: id ?? .zero,
             name: name ?? "",
             onAir: onAir ?? "",

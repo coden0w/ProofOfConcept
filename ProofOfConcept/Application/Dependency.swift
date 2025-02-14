@@ -6,34 +6,28 @@
 //
 
 import Foundation
-import Combine
 
 /*
  Sendable: protocol to safty pass values between threads without data races
  */
 final class Dependency: Sendable {
-    
     static let shared = Dependency()
-    
-    internal init() {
-        // Empty
+
+    var getAllCharactersUseCase: GetAllCharactersUseCase {
+        GetAllCharactersUseCase(repository: self.apiRepository)
     }
     
-    func getAllCharactersUseCase() -> GetAllCharactersUseCase {
-        return GetAllCharactersUseCase(repository: getApiRepository())
+    var getCharacterLocationUseCase: GetCharacterLocationUseCase {
+        GetCharacterLocationUseCase(repository: self.apiRepository)
     }
     
-    func getCharacterLocationUseCase() -> GetCharacterLocationUseCase {
-        return GetCharacterLocationUseCase(repository: getApiRepository())
-    }
-    
-    func getCharacterEpisodeUseCase() -> GetCharacterEpisodeUseCase {
-        return GetCharacterEpisodeUseCase(repository: getApiRepository())
+    var getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase {
+        GetCharacterEpisodeUseCase(repository: self.apiRepository)
     }
 }
+
 extension Dependency {
-    
-    private func getApiRepository() -> ApiRepository { // Configure here the environment
-        return ApiRepositoryImpl(baseURL: "https://rickandmortyapi.com")
+    private var apiRepository: ApiRepository {
+        ApiRepositoryImpl(baseURL: "https://rickandmortyapi.com")
     }
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct CharacterEpisodeDetailRequestDomainModel: Sendable {
+struct CharacterEpisodeDetailRequestDomainModel: Sendable {
     
-    public let episode: String
+    let episode: String
     
-    public init(episode: String) {
+    init(episode: String) {
         self.episode = episode
     }
 }

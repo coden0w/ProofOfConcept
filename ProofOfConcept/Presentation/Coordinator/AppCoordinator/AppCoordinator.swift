@@ -6,40 +6,33 @@
 //
 
 import Foundation
-import Combine
 
 protocol AppCoordinatorProtocol {
     func showCharacters()
     func showCharacterDetail(_ character: CharacterModel)
 }
 
+@MainActor
 final class AppCoordinator: ObservableObject, Identifiable {
-    
     @Published var rootNavigation = NavigationItem<RootViewModel>()
     @Published var charactersNavigation = NavigationItem<CharactersViewModel>()
     @Published var characterDetailNavigation = NavigationItem<CharacterDetailViewModel>()
-    
-    init() {
-        /* Empty */
-    }
-    
 }
 
 extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
-    
-    @MainActor func showRoot() {
+    func showRoot() {
         let viewModel = RootViewModel(coordinator: self)
         rootNavigation.navigate(to: viewModel)
     }
     
-    @MainActor func showCharacters() {
+    func showCharacters() {
         let viewModel = CharactersViewModel(coordinator: self)
         charactersNavigation.navigate(to: viewModel) {
             print("Characters screen dismissed")
         }
     }
     
-    @MainActor func showCharacterDetail(_ character: CharacterModel) {
+    func showCharacterDetail(_ character: CharacterModel) {
         let viewModel = CharacterDetailViewModel(coordinator: self, character: character)
         characterDetailNavigation.navigate(to: viewModel) {
             print("Character detail screen dismissed")
@@ -49,13 +42,11 @@ extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
 
 extension AppCoordinator {
     static var sample: AppCoordinator {
-        let coordinator = AppCoordinator()
-        return coordinator
+        AppCoordinator()
     }
 }
 
 struct NavigationItem<Object> {
-    
     var onDismissAction: (() -> ())?
     var viewModel: Object?
     var isActive: Bool = false {

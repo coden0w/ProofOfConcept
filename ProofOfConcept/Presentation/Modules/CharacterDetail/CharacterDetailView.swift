@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct CharacterDetailView: View {
-    
     @ObservedObject var viewModel: CharacterDetailViewModel
+
     var body: some View {
         ZStack {
             VStack(spacing: Constants.thirty) {

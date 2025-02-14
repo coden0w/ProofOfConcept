@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import Combine
 
 class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
-    
-    
+
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
     }
@@ -33,6 +31,6 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
 
 extension RootViewModel {
     static var sample: RootViewModel {
-        return RootViewModel(coordinator: .sample)
+        RootViewModel(coordinator: .sample)
     }
 }

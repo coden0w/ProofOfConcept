@@ -7,23 +7,23 @@
 
 import Foundation
 
-public struct CharacterEpisodeDetailDomainModel: Sendable {
+struct CharacterEpisodeDetailDomainModel: Sendable {
     
-    public let id: Int
-    public let name: String
-    public let onAir: String
-    public let episode: String
-    public let characters: [String]
-    public let url: String
-    public let created: String
+    let id: Int
+    let name: String
+    let onAir: String
+    let episode: String
+    let characters: [String]
+    let url: String
+    let created: String
     
-    public init(id: Int,
-                name: String,
-                onAir: String,
-                episode: String,
-                characters: [String],
-                url: String,
-                created: String) {
+    init(id: Int,
+         name: String,
+         onAir: String,
+         episode: String,
+         characters: [String],
+         url: String,
+         created: String) {
         self.id = id
         self.name = name
         self.onAir = onAir
