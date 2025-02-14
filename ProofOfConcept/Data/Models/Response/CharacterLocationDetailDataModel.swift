@@ -8,7 +8,6 @@
 import Foundation
 
 struct CharacterLocationDetailDataModel: Codable {
-    
     let id: Int?
     let name: String?
     let type: String?
@@ -16,15 +15,17 @@ struct CharacterLocationDetailDataModel: Codable {
     let residents: [String]?
     let url: String?
     let created: String?
+    
+    static func get(location: String) throws -> Resource<CharacterLocationDetailDataModel> {
+        guard let url = try URL.fetch(path: "/api/location/\(location)/") else {
+            throw NetworkError.badUrl
+        }
+        return Resource(url: url)
+    }
 }
 
 extension CharacterLocationDetailDataModel {
-    
-    init(data: Data) throws {
-        self = try JSONDecoder().decode(CharacterLocationDetailDataModel.self, from: data)
-    }
-    
-    func parseToDomainModel() -> CharacterLocationDetailDomainModel {
+    var toParseToDomainModel: CharacterLocationDetailDomainModel {
         CharacterLocationDetailDomainModel(id: id ?? .zero,
                                            name: name ?? "",
                                            type: type ?? "",

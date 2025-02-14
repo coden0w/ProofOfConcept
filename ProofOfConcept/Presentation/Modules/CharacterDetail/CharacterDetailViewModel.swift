@@ -8,40 +8,29 @@
 import Foundation
 
 final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
-    
-    // MARK: - Properties
-    
     @Published var character: CharacterModel
     @Published var origin: LocationModel = .init()
     @Published var location: LocationModel = .init()
     @Published var episode: EpisodeModel = .init()
     
-    // MARK: - Dependencies
-    
     private let getCharacterLocationUseCase: GetCharacterLocationUseCase
     private let getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase
     
-    // MARK: - Init
-    
     init(coordinator: AppCoordinator,
          character: CharacterModel,
-         getCharacterLocationUseCase: GetCharacterLocationUseCase = Dependency.shared.getCharacterLocationUseCase,
-         getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase = Dependency.shared.getCharacterEpisodeUseCase) {
+         getCharacterLocationUseCase: GetCharacterLocationUseCase = GetCharacterLocationUseCase(),
+         getCharacterEpisodeUseCase: GetCharacterEpisodeUseCase = GetCharacterEpisodeUseCase()) {
         self.character = character
         self.getCharacterLocationUseCase = getCharacterLocationUseCase
         self.getCharacterEpisodeUseCase = getCharacterEpisodeUseCase
         super.init(coordinator: coordinator)
     }
     
-    // MARK: - Life Cycle
-    
     override func onAppear() async {
         await super.onAppear()
         locations()
         episodes()
     }
-    
-    // MARK: - NavigationFunctions
     
     func locations() {
         Task {
@@ -67,7 +56,9 @@ final class CharacterDetailViewModel: BaseViewModel<AppCoordinatorProtocol> {
             }
         }
     }
-    
+}
+
+extension CharacterDetailViewModel {
     private func transformLocationModel(_ response: CharacterLocationDetailDomainModel, isOrigin: Bool = true) {
         if isOrigin {
             origin = .init(name: response.name,
