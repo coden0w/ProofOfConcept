@@ -8,7 +8,6 @@
 import Foundation
 
 struct CharacterEpisodeDetailDomainModel: Sendable {
-    
     let id: Int
     let name: String
     let onAir: String
