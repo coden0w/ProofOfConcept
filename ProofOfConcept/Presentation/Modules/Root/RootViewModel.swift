@@ -10,22 +10,27 @@ import Foundation
 class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
-
+    @Published var items: [ListItemModel] = [.init(id: 0, title: "Characters Download"),
+                                             .init(id: 1, title: "Characters")]
+    
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
     }
     
     override func onAppear() async {
         await super.onAppear()
-        navigateToCharacters()
     }
     
     override func onDisappear() async {
         await super.onDisappear()
     }
     
-    func navigateToCharacters() {
-        self.coordinator?.showCharacters()
+    func navigateTo(_ id: Int) {
+        if id == .zero {
+            self.coordinator?.showCharactersDownload()
+        } else {
+            self.coordinator?.showCharacters()
+        }
     }
 }
 

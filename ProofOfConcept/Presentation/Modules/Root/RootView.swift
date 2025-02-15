@@ -12,17 +12,32 @@ struct RootView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                Text("Splash")
-                Button {
-                    viewModel.coordinator?.showCharacters()
-                } label: {
-                    Text("Go to Characters")
+            List {
+                ForEach(viewModel.items, id: \.id) { item in
+                    ListItemView(item.title)
+                        .onTapGesture {
+                            viewModel.navigateTo(item.id)
+                        }
                 }
-
             }
+            .listStyle(.plain)
         }
         .bind(lifeCycle: viewModel)
+        .navigationTitle("Go To")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+extension RootView {
+    
+    @ViewBuilder
+    private func ListItemView(_ item: String) -> some View {
+        HStack {
+            Text(item)
+            Spacer()
+            Image(systemName: "chevron.right")
+        }
+        .contentShape(Rectangle())
     }
 }
 

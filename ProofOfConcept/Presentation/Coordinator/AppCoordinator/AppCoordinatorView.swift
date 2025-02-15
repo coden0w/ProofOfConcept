@@ -18,6 +18,8 @@ struct AppCoordinatorView: View {
                     RootView(viewModel: rootVM)
                         .navigation(isActive: $coordinator.charactersNavigation.isActive,
                                     destination: { getCharactersView() })
+                        .navigation(isActive: $coordinator.charactersDownloadNavigation.isActive,
+                                    destination: { getCharactersDownloadView() })
                     
                 }
             }
@@ -44,6 +46,13 @@ extension AppCoordinatorView {
             fatalError("Character detail view model not set.")
         }
         return CharacterDetailView(viewModel: vm)
+    }
+    
+    func getCharactersDownloadView() -> some View {
+        guard let vm = coordinator.charactersDownloadNavigation.viewModel else {
+            fatalError("Characters download view model not set.")
+        }
+        return CharactersDownloadView(viewModel: vm)
     }
 }
 
