@@ -12,6 +12,7 @@ protocol AppCoordinatorProtocol {
     func showCharacterDetail(_ character: CharacterModel)
     func showCharactersDownload()
     func showWebView()
+    func showCharacterPrimaryColors()
 }
 
 @MainActor
@@ -21,6 +22,7 @@ final class AppCoordinator: ObservableObject, Identifiable {
     @Published var characterDetailNavigation = NavigationItem<CharacterDetailViewModel>()
     @Published var charactersDownloadNavigation = NavigationItem<CharactersDownloadViewModel>()
     @Published var webViewNavigation = NavigationItem<WebViewViewModel>()
+    @Published var characterPrimaryColorsNavigation = NavigationItem<CharacterPrimaryColorsViewModel>()
 }
 
 extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
@@ -51,6 +53,13 @@ extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
     func showWebView() {
         let viewModel = WebViewViewModel(coordinator: self)
         webViewNavigation.navigate(to: viewModel)
+    }
+    
+    func showCharacterPrimaryColors() {
+        let viewModel = CharacterPrimaryColorsViewModel(coordinator: self)
+        characterPrimaryColorsNavigation.navigate(to: viewModel) {
+            print("Character primary colors screen dismissed")
+        }
     }
 }
 

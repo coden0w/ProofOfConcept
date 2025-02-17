@@ -22,6 +22,9 @@ struct AppCoordinatorView: View {
                                     destination: { gharactersDownloadView })
                         .navigation(isActive: $coordinator.webViewNavigation.isActive,
                                     destination: { webView })
+                        .navigation(isActive: $coordinator.characterPrimaryColorsNavigation.isActive,
+                                    destination: { characterPrimaryColorView })
+                    
                 }
             }
         }
@@ -61,6 +64,13 @@ extension AppCoordinatorView {
             fatalError("Web view model not set.")
         }
         return WebView(viewModel: vm)
+    }
+    
+    var characterPrimaryColorView: some View {
+        guard let vm = coordinator.characterPrimaryColorsNavigation.viewModel else {
+            fatalError("Character primary colors view model not set.")
+        }
+        return CharacterPrimaryColorsView(viewModel: vm)
     }
 }
 

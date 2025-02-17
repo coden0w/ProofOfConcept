@@ -98,7 +98,7 @@ extension CharactersDownloadView {
     }
 }
 
-extension View {
+fileprivate extension View {
     func showError(_ viewModel: CharactersDownloadViewModel) -> some View {
         self.alert(isPresented: .constant(viewModel.showError != .none)) {
             switch viewModel.showError {
