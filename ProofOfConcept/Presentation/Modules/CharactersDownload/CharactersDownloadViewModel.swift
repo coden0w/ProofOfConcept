@@ -19,8 +19,8 @@ class CharactersDownloadViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
     
-    private let photoLibraryService = DefaultPhotoLibraryService()
-    private let imageService = DefaultImageService()
+    private let photoLibraryService: PhotoLibraryService
+    private let imageService: ImageService
     
     @Published var albumName: String = ""
     @Published var isDownloading: Bool = false
@@ -36,7 +36,11 @@ class CharactersDownloadViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Initializers
     
     init(coordinator: AppCoordinator,
+         photoLibraryService: PhotoLibraryService = DefaultPhotoLibraryService(),
+         imageService: ImageService = DefaultImageService(),
          getAllCharactersUseCase: GetAllCharactersUseCase = GetAllCharactersUseCase()) {
+        self.photoLibraryService = photoLibraryService
+        self.imageService = imageService
         self.getAllCharactersUseCase = getAllCharactersUseCase
         super.init(coordinator: coordinator)
     }
@@ -53,7 +57,11 @@ class CharactersDownloadViewModel: BaseViewModel<AppCoordinatorProtocol> {
     }
     
     // MARK: - Functions
-    
+    /*
+     DISCLAIMER:
+     We made this expample by reusing existing usecases,
+     but the concept idea is based in https://github.com/davilinho/spikeDownloadPhotosAndSaveAlbum
+     */
     func download() {
         Task {
             await withTaskGroup(of: Void.self) { group in
