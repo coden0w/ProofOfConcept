@@ -8,6 +8,8 @@
 import Foundation
 @testable import ProofOfConcept
 
+var mockCharactersData: CharactersDataModel = CharactersDataModel(info: CharacterInfoDataModel(count: 1, pages: 1, next: "", prev: ""),
+                                                                  characters: [CharacterDataModel(id: 1, name: "TEST", status: "", species: "", type: "", gender: "", origin: nil, location: nil, image: nil, episode: nil, url: nil, created: nil)])
 var mockCharacters: CharactersDomainModel {
     CharactersDomainModel(info: mockInfo,
                           characters: [mockCharacter])
@@ -42,3 +44,7 @@ let mockCharacterEpisodeDetail: CharacterEpisodeDetailDomainModel = CharacterEpi
                                                                                                       characters: [],
                                                                                                       url: "",
                                                                                                       created: "")
+struct TestModel: Codable, Equatable {
+    let id: Int
+    let name: String
+}

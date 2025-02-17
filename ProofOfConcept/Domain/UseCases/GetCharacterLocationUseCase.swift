@@ -10,7 +10,7 @@ import Foundation
 actor GetCharacterLocationUseCase: UseCaseProtocol {
     private let repository: ApiRepository
 
-    init(repository: ApiRepository) {
+    init(repository: ApiRepository = ApiRepositoryImpl()) {
         self.repository = repository
     }
 

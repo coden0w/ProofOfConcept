@@ -8,34 +8,33 @@
 import Foundation
 
 struct CharactersDataModel: Codable {
-    
     let info: CharacterInfoDataModel?
     let characters: [CharacterDataModel]?
-    
+
     enum CodingKeys: String, CodingKey {
         case info = "info"
         case characters = "results"
     }
-    
+
+    static func get(page: String) throws -> Resource<CharactersDataModel> {
+        guard let url = try URL.fetch(path: "/api/character/", queryParams: [["page": page]]) else {
+            throw NetworkError.badUrl
+        }
+        return Resource(url: url)
+    }
 }
 
 extension CharactersDataModel {
-    
-    init(data: Data) throws {
-        self = try JSONDecoder().decode(CharactersDataModel.self, from: data)
-    }
-    
-    func parseToDomainModel() -> CharactersDomainModel {
-        
+    var toParseToDomainModel: CharactersDomainModel {
         let characterInfoDomainModel = CharacterInfoDomainModel(count: info?.count ?? .zero,
                                                                 pages: info?.pages ?? .zero,
                                                                 nextUrl: info?.next ?? "",
                                                                 prevUrl: info?.prev ?? "")
-        
+
         let charactersDomainModel: [CharacterDomainModel] = characters?.compactMap({ characterDataModel in
-            characterDataModel.parseToDomainModel()
+            characterDataModel.toParseToDomainModel
         }) ?? []
-        
+
         return CharactersDomainModel(info: characterInfoDomainModel,
                                      characters: charactersDomainModel)
     }
@@ -71,8 +70,7 @@ struct CharacterDataModel: Codable {
 }
 
 extension CharacterDataModel {
-    
-    func parseToDomainModel() -> CharacterDomainModel {
+    var toParseToDomainModel: CharacterDomainModel {
         let originDomainModel: CharacterOriginDomainModel = .init(name: origin?.name ?? "",
                                                                   url: origin?.url ?? "")
         

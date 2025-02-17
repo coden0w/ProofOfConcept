@@ -8,40 +8,27 @@
 import Foundation
 
 final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
-    
-    // MARK: - Publishers
-    
     @Published var characters: [CharacterModel] = []
     @Published var page: Int = .zero
     
-    // MARK: - Dependencies
-    
     private let getAllCharactersUseCase: GetAllCharactersUseCase
     
-    // MARK: - Init
-    
     init(coordinator: AppCoordinator,
-         getAllCharactersUseCase: GetAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase) {
+         getAllCharactersUseCase: GetAllCharactersUseCase = GetAllCharactersUseCase()) {
         self.getAllCharactersUseCase = getAllCharactersUseCase
         super.init(coordinator: coordinator)
     }
-    
-    // MARK: - Life Cycle
     
     override func onAppear() async {
         await super.onAppear()
         getCharacters()
     }
     
-    // MARK: - Navigation Functions
-    
     func details(_ id: Int) {
         if let model = characters.first(where: { $0.id == id }) {
             coordinator?.showCharacterDetail(model)
         }
     }
-    
-    // MARK: - Action Functions
     
     func nextPage() {
         page += 1
@@ -52,9 +39,9 @@ final class CharactersViewModel: BaseViewModel<AppCoordinatorProtocol> {
         page -= 1
         getCharacters()
     }
-    
-    // MARK: - Private Functions
-    
+}
+
+extension CharactersViewModel {
     private func getCharacters() {
         Task {
             do {

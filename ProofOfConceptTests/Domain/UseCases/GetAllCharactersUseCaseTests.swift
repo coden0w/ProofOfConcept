@@ -21,7 +21,7 @@ import Testing
             let response: CharactersDomainModel = try await mockUseCase.execute(CharactersRequestDomainModel(page: 1))
 
             // Assert
-            #expect(await response.characters.first?.id == mockCharacter.characters.first?.id)
+            #expect(response.characters.first?.id == mockCharacter.characters.first?.id)
         }
     }
 }
