@@ -14,7 +14,7 @@ actor GetCharacterLocationUseCase: UseCaseProtocol {
         self.repository = repository
     }
 
-    func handle<Input, Output>(input: Input) async throws -> Output where Input : Sendable, Output : Sendable {
+    func execute<Input, Output>(_ input: Input) async throws -> Output where Input : Sendable, Output : Sendable {
         guard let input = input as? CharacterLocationDetailRequestDomainModel,
               let output = try await repository.getCharacterLocation(requestModel: input) as? Output else {
             fatalError("Unable to cast output")

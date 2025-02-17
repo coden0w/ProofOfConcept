@@ -8,9 +8,8 @@
 import Foundation
 
 struct CharacterEpisodeDetailRequestDomainModel: Sendable {
-    
     let episode: String
-    
+
     init(episode: String) {
         self.episode = episode
     }
