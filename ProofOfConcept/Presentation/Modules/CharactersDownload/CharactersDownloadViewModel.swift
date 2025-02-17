@@ -36,7 +36,7 @@ class CharactersDownloadViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Initializers
     
     init(coordinator: AppCoordinator,
-         getAllCharactersUseCase: GetAllCharactersUseCase = Dependency.shared.getAllCharactersUseCase) {
+         getAllCharactersUseCase: GetAllCharactersUseCase = GetAllCharactersUseCase()) {
         self.getAllCharactersUseCase = getAllCharactersUseCase
         super.init(coordinator: coordinator)
     }
