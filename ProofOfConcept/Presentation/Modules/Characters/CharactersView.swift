@@ -64,7 +64,6 @@ struct CharactersView: View {
             }
         }
         .bind(viewModel: viewModel)
-        .navigationBarBackButtonHidden()
         .navigationTitle("Characters")
         .navigationBarTitleDisplayMode(.inline)
     }
