@@ -58,7 +58,7 @@ extension AppCoordinatorView {
 
     var webView: some View {
         guard let vm = coordinator.webViewNavigation.viewModel else {
-            fatalError("Characters download view model not set.")
+            fatalError("Web view model not set.")
         }
         return WebView(viewModel: vm)
     }
