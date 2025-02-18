@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WKWebView Test</title>
+    <script>
+        function sendMessageToSwift() {
+            window.webkit.messageHandlers.iosListener.postMessage("Hola desde JavaScript");
+        }
+
+        function receiveMessageFromSwift(message) {
+            document.getElementById("message").innerText = message;
+        }
+    </script>
+</head>
+<body>
+    <h2 id="message">Esperando mensaje de Swift...</h2>
+    <button onclick="sendMessageToSwift()">Enviar a Swift</button>
+</body>
+</html>

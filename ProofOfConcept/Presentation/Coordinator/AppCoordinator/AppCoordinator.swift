@@ -10,6 +10,8 @@ import Foundation
 protocol AppCoordinatorProtocol {
     func showCharacters()
     func showCharacterDetail(_ character: CharacterModel)
+    func showCharactersDownload()
+    func showWebView()
 }
 
 @MainActor
@@ -17,6 +19,8 @@ final class AppCoordinator: ObservableObject, Identifiable {
     @Published var rootNavigation = NavigationItem<RootViewModel>()
     @Published var charactersNavigation = NavigationItem<CharactersViewModel>()
     @Published var characterDetailNavigation = NavigationItem<CharacterDetailViewModel>()
+    @Published var charactersDownloadNavigation = NavigationItem<CharactersDownloadViewModel>()
+    @Published var webViewNavigation = NavigationItem<WebViewViewModel>()
 }
 
 extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
@@ -37,6 +41,16 @@ extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
         characterDetailNavigation.navigate(to: viewModel) {
             print("Character detail screen dismissed")
         }
+    }
+
+    func showCharactersDownload() {
+        let viewModel = CharactersDownloadViewModel(coordinator: self)
+        charactersDownloadNavigation.navigate(to: viewModel)
+    }
+    
+    func showWebView() {
+        let viewModel = WebViewViewModel(coordinator: self)
+        webViewNavigation.navigate(to: viewModel)
     }
 }
 
