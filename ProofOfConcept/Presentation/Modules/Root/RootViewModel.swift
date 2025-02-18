@@ -12,7 +12,9 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     // MARK: - Properties
     @Published var items: [ListItemModel] = [.init(id: 0, title: "Characters Download"),
                                              .init(id: 1, title: "Characters"),
-                                             .init(id: 2, title: "WebView")]
+                                             .init(id: 2, title: "WebView"),
+                                             .init(id: 3, title: "Character Primary Colors")]
+    
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
     }
@@ -37,7 +39,9 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
             self.coordinator?.showCharacters()
         case 2:
             self.coordinator?.showWebView()
-        default:
+        case 3:
+            self.coordinator?.showCharacterPrimaryColors()
+        default: 
             break
         }
     }
