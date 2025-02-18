@@ -19,7 +19,6 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     override func onAppear() async {
         await super.onAppear()
-        navigateToCharacters()
     }
     
     override func onDisappear() async {
