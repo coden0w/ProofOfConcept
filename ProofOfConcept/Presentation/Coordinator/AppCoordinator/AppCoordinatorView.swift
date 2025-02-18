@@ -20,7 +20,8 @@ struct AppCoordinatorView: View {
                                     destination: { charactersView })
                         .navigation(isActive: $coordinator.charactersDownloadNavigation.isActive,
                                     destination: { gharactersDownloadView })
-                    
+                        .navigation(isActive: $coordinator.webViewNavigation.isActive,
+                                    destination: { webView })
                 }
             }
         }
@@ -47,12 +48,19 @@ extension AppCoordinatorView {
         }
         return CharacterDetailView(viewModel: vm)
     }
-    
+
     var gharactersDownloadView: some View {
         guard let vm = coordinator.charactersDownloadNavigation.viewModel else {
             fatalError("Characters download view model not set.")
         }
         return CharactersDownloadView(viewModel: vm)
+    }
+
+    var webView: some View {
+        guard let vm = coordinator.webViewNavigation.viewModel else {
+            fatalError("Web view model not set.")
+        }
+        return WebView(viewModel: vm)
     }
 }
 

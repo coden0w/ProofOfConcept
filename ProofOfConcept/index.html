@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WKWebView Test</title>
+    <script>
+        function sendMessageToSwift() {
+            window.webkit.messageHandlers.getMessage.postMessage("Hello from javascript");
+        }
+
+        function receiveMessageFromSwift(message) {
+            document.getElementById("message").innerText = message;
+        }
+
+        async function requestMessageFromSwift() {
+            if (window.webkit && window.webkit.messageHandlers.sendMessage) {
+                try {
+                    const response = await window.webkit.messageHandlers.sendMessage.postMessage(null);
+                    document.getElementById("message").innerText = response;
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                console.error(error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2 id="message">Waiting a message...</h2>
+    <button onclick="sendMessageToSwift()">Send to native</button>
+    <button onclick="requestMessageFromSwift()">Request from native</button>
+</body>
+</html>

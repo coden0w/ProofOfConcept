@@ -11,8 +11,8 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     
     // MARK: - Properties
     @Published var items: [ListItemModel] = [.init(id: 0, title: "Characters Download"),
-                                             .init(id: 1, title: "Characters")]
-    
+                                             .init(id: 1, title: "Characters"),
+                                             .init(id: 2, title: "WebView")]
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
     }
@@ -24,12 +24,21 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     override func onDisappear() async {
         await super.onDisappear()
     }
-    
+
+    func navigateToCharacters() {
+        self.coordinator?.showCharacters()
+    }
+
     func navigateTo(_ id: Int) {
-        if id == .zero {
+        switch id {
+        case .zero:
             self.coordinator?.showCharactersDownload()
-        } else {
+        case 1:
             self.coordinator?.showCharacters()
+        case 2:
+            self.coordinator?.showWebView()
+        default:
+            break
         }
     }
 }
