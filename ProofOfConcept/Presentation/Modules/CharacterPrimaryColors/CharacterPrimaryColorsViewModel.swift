@@ -14,9 +14,11 @@ final class CharacterPrimaryColorsViewModel: BaseViewModel<AppCoordinatorProtoco
     // MARK: - Properties
     private let photoLibraryService = DefaultPhotoLibraryService()
     private let imageService = DefaultImageService()
-    private var suscriptions = [AnyCancellable]()
     
-    @Published var selectedImage: UIImage?
+    @Published var selectedImage: UIImage? {
+        didSet { extractPrimaryColors() }
+    }
+    
     @Published var isImagePickerPresented: Bool = false
     @Published var primaryColors = [PrimaryColorModel]()
     @Published var totalTime: String = ""
@@ -26,7 +28,6 @@ final class CharacterPrimaryColorsViewModel: BaseViewModel<AppCoordinatorProtoco
     
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
-        self.setListeners()
     }
     
     // MARK: - Life Cycle
@@ -41,19 +42,13 @@ final class CharacterPrimaryColorsViewModel: BaseViewModel<AppCoordinatorProtoco
     
     // MARK: - Listeners
     
-    private func setListeners() {
-        $selectedImage.sink { image in
-            if let image = image {
-                Task {
-                    let (totalTime, colors) = await self.imageService.getDominantColors(from: image)
-                    self.totalTime = String(totalTime)
-                    self.primaryColors = colors.map {
-                        return .init(color: $0, hexColor: $0.toHex())
-                    }
-                }
-            }
+    private func extractPrimaryColors() {
+        Task {
+            guard let selectedImage else { return }
+            let (totalTime, colors) = await self.imageService.getDominantColors(from: selectedImage)
+            self.totalTime = String(totalTime)
+            self.primaryColors = colors.map { .init(color: $0, hexColor: $0.toHex()) }
         }
-        .store(in: &suscriptions)
     }
     
     // MARK: - Functions

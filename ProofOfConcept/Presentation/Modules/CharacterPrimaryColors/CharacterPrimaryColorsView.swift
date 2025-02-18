@@ -125,6 +125,6 @@ fileprivate extension View {
     }
 }
 
-#Preview {
-    CharacterPrimaryColorsView(viewModel: .sample)
-}
+//#Preview {
+//    CharacterPrimaryColorsView(viewModel: .sample)
+//}
