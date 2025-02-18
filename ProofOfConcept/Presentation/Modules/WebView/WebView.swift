@@ -93,7 +93,7 @@ extension WebViewCoordinator: WKScriptMessageHandlerWithReply {
 }
 
 extension WebViewCoordinator {
-    @objc func getMessage(_ message: WKScriptMessage) {
+    private func getMessage(_ message: WKScriptMessage) {
         guard let messageBody = message.body as? String else { return }
         print("Message received from JS: \(messageBody)")
 
@@ -102,7 +102,7 @@ extension WebViewCoordinator {
         parent.webView.evaluateJavaScript(jsCode, completionHandler: nil)
     }
     
-    @objc func sendMessage() -> String {
+    private func sendMessage() -> String {
         "My message from iOS to WebKit"
     }
 }
