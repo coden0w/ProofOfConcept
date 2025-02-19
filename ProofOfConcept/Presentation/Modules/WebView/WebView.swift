@@ -18,5 +18,6 @@ struct WebView: View {
         }
         .padding()
         .bind(lifeCycle: viewModel)
+        .navigationTitle(Text("WebView"))
     }
 }

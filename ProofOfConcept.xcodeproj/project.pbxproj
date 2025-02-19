@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B741E942D65E4CB00D474EE /* PDFViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 8B741E932D65E4CB00D474EE /* PDFViewer */; };
 		8BB141422D64CC2E00E76849 /* WebViewSPM in Frameworks */ = {isa = PBXBuildFile; productRef = 8BB141412D64CC2E00E76849 /* WebViewSPM */; };
 		D2C47AEA2D5DDAAC005B9FA5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */; };
 		D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D2C47AEB2D5DDAAC005B9FA5 /* FirebaseMessaging */; };
@@ -43,6 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8B741E8D2D65E21200D474EE /* PDFViewer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PDFViewer; sourceTree = "<group>"; };
 		8BB141402D64CB2800E76849 /* WebViewSPM */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WebViewSPM; sourceTree = "<group>"; };
 		D2C47BBC2D5DF19D005B9FA5 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D2C47BBE2D5DF19D005B9FA5 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -93,6 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BB141422D64CC2E00E76849 /* WebViewSPM in Frameworks */,
+				8B741E942D65E4CB00D474EE /* PDFViewer in Frameworks */,
 				D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */,
 				D2C47AEA2D5DDAAC005B9FA5 /* FirebaseCore in Frameworks */,
 			);
@@ -127,6 +130,7 @@
 		D2E606DA2D4A3CA200D0A0B7 = {
 			isa = PBXGroup;
 			children = (
+				8B741E8D2D65E21200D474EE /* PDFViewer */,
 				8BB141402D64CB2800E76849 /* WebViewSPM */,
 				D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */,
 				D2E606F62D4A3CA400D0A0B7 /* ProofOfConceptTests */,
@@ -171,6 +175,7 @@
 				D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */,
 				D2C47AEB2D5DDAAC005B9FA5 /* FirebaseMessaging */,
 				8BB141412D64CC2E00E76849 /* WebViewSPM */,
+				8B741E932D65E4CB00D474EE /* PDFViewer */,
 			);
 			productName = ProofOfConcept;
 			productReference = D2E606E32D4A3CA200D0A0B7 /* ProofOfConcept.app */;
@@ -639,6 +644,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8B741E932D65E4CB00D474EE /* PDFViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PDFViewer;
+		};
 		8BB141412D64CC2E00E76849 /* WebViewSPM */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WebViewSPM;

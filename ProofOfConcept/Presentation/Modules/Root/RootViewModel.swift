@@ -13,7 +13,8 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
     @Published var items: [ListItemModel] = [.init(id: 0, title: "Characters Download"),
                                              .init(id: 1, title: "Characters"),
                                              .init(id: 2, title: "WebView"),
-                                             .init(id: 3, title: "Character Primary Colors")]
+                                             .init(id: 3, title: "Character Primary Colors"),
+                                             .init(id: 4, title: "PDF Viewer")]
     
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
@@ -41,7 +42,9 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
             self.coordinator?.showWebView()
         case 3:
             self.coordinator?.showCharacterPrimaryColors()
-        default: 
+        case 4:
+            self.coordinator?.showPDFViewer()
+        default:
             break
         }
     }
