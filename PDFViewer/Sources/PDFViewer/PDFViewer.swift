@@ -16,6 +16,8 @@ public struct PDFViewer: UIViewRepresentable {
         let pdfView = PDFView()
         pdfView.autoScales = true
         pdfView.document = PDFDocument(url: url)
+        pdfView.backgroundColor = .clear
+        pdfView.layer.backgroundColor = UIColor.white.cgColor
         return pdfView
     }
 
@@ -52,6 +54,55 @@ public struct PDFPickerViewer: UIViewControllerRepresentable {
 
         public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             parent.pdfUrl = urls.first
+        }
+    }
+}
+
+public extension PDFView {
+    @MainActor
+    func addAnnotation(text: String) {
+        guard let document = self.document,
+              let page = document.page(at: 0) else { return }
+
+        let annotation = PDFAnnotation(
+            bounds: CGRect(x: 50, y: 0, width: 100, height: 50),
+            forType: .freeText,
+            withProperties: nil
+        )
+        annotation.contents = text
+        annotation.font = UIFont.systemFont(ofSize: 18)
+        annotation.fontColor = .red
+        page.addAnnotation(annotation)
+    }
+    
+    func highlightText(searchText: String) {
+        guard let document = self.document else { return }
+
+        let selections = document.findString(searchText, withOptions: .caseInsensitive)
+
+        for selection in selections {
+            if let page = selection.pages.first {
+                let highlight = PDFAnnotation(bounds: selection.bounds(for: page),
+                                              forType: .highlight,
+                                              withProperties: nil)
+                highlight.color = UIColor.yellow.withAlphaComponent(0.5)
+                page.addAnnotation(highlight)
+            }
+        }
+    }
+    
+    func savePDFToDocuments(fileName: String) -> URL? {
+        guard let document else { return nil }
+
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+
+        if document.write(to: fileURL) {
+            print("PDF saved successfully at: \(fileURL)")
+            return fileURL
+        } else {
+            print("Error saving PDF")
+            return nil
         }
     }
 }

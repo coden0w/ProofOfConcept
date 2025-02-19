@@ -8,6 +8,9 @@ import SwiftUI
 class PDFViewerViewModel: BaseViewModel<AppCoordinatorProtocol> {
     @Published var selectedRemotePDF: URL?
     @Published var selectedLocalPDF: URL?
+    
+    @Published var annotationText: String = ""
+    @Published var hightlightedText: String = ""
 
     override func onAppear() async {
         await super.onAppear()
