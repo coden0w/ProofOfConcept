@@ -79,11 +79,7 @@ extension AppCoordinatorView {
         guard let vm = coordinator.pdfViewerNavigation.viewModel else {
             fatalError("PDF Viewer view model not set.")
         }
-        if #available(iOS 16.1, *) {
-            return PDFViewerView(viewModel: vm)
-        } else {
-            return EmptyView()
-        }
+        return PDFViewerView(viewModel: vm)
     }
 }
 
