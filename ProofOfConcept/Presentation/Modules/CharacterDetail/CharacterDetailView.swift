@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import ActivityKit
 
 struct CharacterDetailView: View {
     @ObservedObject var viewModel: CharacterDetailViewModel
@@ -16,6 +17,9 @@ struct CharacterDetailView: View {
             VStack(spacing: Constants.thirty) {
                 ProfileView(viewModel.character)
                 InfoView(viewModel.character)
+                if #available(iOS 16.2, *) {
+                    CharacterResumeView(viewModel: viewModel)
+                }
                 LocationView(viewModel.origin)
                 LocationView(viewModel.location)
                 EpisodeView(viewModel.episode)
@@ -147,4 +151,52 @@ extension CharacterDetailView {
 
 #Preview {
     CharacterDetailView(viewModel: .sample)
+}
+
+@available(iOS 16.2, *)
+struct CharacterResumeView: View {
+    @State private var isPresented: Bool = false
+    @ObservedObject var viewModel: CharacterDetailViewModel
+    @State private var manager = LiveActionManager.shared
+    
+    var body: some View {
+        Button {
+            Task {
+                let attributes = CharacterAttributes()
+                let state = CharacterAttributes.ContentState(name: viewModel.character.name,
+                                                             image: viewModel.character.image,
+                                                             status: viewModel.character.status == "Alive",
+                                                             species: viewModel.character.species)
+                
+                if isPresented {
+                    await manager.stopActivity(state)
+                } else {
+                    await manager.startActivity(attributes, state)
+                }
+                isPresented.toggle()
+            }
+        } label: {
+            Text(isPresented ? "Remove" : "Add")
+        }
+    }
+}
+
+@available(iOS 16.2, *)
+actor LiveActionManager {
+    @MainActor @State var activity: Activity<CharacterAttributes>?
+    static let shared = LiveActionManager()
+
+    @MainActor
+    func startActivity(_ attr: CharacterAttributes, _ state: CharacterAttributes.ContentState) async {
+        let aux = try? Activity<CharacterAttributes>.request( attributes: attr,
+                                                                   content: ActivityContent(state: state, staleDate: nil ),
+                                                                   pushType: nil )
+        self.activity = aux
+    }
+    
+    @MainActor
+    func stopActivity(_ state: CharacterAttributes.ContentState) async {
+        await activity?.end(ActivityContent(state: state, staleDate: nil),
+                            dismissalPolicy: .immediate)
+    }
 }
