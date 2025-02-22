@@ -26,6 +26,8 @@ struct AppCoordinatorView: View {
                                     destination: { characterPrimaryColorView })
                         .navigation(isActive: $coordinator.pdfViewerNavigation.isActive,
                                     destination: { pdfViewerView })
+                        .navigation(isActive: $coordinator.anyFileViewerNavigation.isActive,
+                                    destination: { anyFileViewerView })
                     
                 }
             }
@@ -80,6 +82,13 @@ extension AppCoordinatorView {
             fatalError("PDF Viewer view model not set.")
         }
         return PDFViewerView(viewModel: vm)
+    }
+    
+    var anyFileViewerView: some View {
+        guard let vm = coordinator.anyFileViewerNavigation.viewModel else {
+            fatalError("Any file Viewer view model not set.")
+        }
+        return AnyFileViewerView(viewModel: vm)
     }
 }
 
