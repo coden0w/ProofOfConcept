@@ -15,6 +15,7 @@ protocol AppCoordinatorProtocol {
     func showCharacterPrimaryColors()
     func showPDFViewer()
     func showAnyFileViewer()
+    func showShareFiles()
 }
 
 @MainActor
@@ -27,6 +28,7 @@ final class AppCoordinator: ObservableObject, Identifiable {
     @Published var characterPrimaryColorsNavigation = NavigationItem<CharacterPrimaryColorsViewModel>()
     @Published var pdfViewerNavigation = NavigationItem<PDFViewerViewModel>()
     @Published var anyFileViewerNavigation = NavigationItem<AnyFileViewerViewModel>()
+    @Published var shareFilesNavigation = NavigationItem<ShareFilesViewModel>()
 }
 
 extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
@@ -77,6 +79,13 @@ extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
         let viewModel = AnyFileViewerViewModel(coordinator: self)
         anyFileViewerNavigation.navigate(to: viewModel) {
             print("Any file Viewer screen dismissed")
+        }
+    }
+    
+    func showShareFiles() {
+        let viewModel = ShareFilesViewModel(coordinator: self)
+        shareFilesNavigation.navigate(to: viewModel) {
+            print("Share files screen dismissed")
         }
     }
 }
