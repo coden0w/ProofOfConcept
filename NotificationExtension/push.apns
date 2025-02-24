@@ -1,0 +1,12 @@
+{
+    "aps": {
+       "alert": {
+            "title":"Test message title",
+            "body": "Test message body"
+       },
+       "badge": 1,
+       "sound": "default",
+       "mutable-content": 1
+    },
+    "attached": "https://www.plexus.es/wp-content/uploads/2021/07/logo_cropped.png"
+}
