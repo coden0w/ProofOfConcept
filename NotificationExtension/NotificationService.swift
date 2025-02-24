@@ -4,6 +4,9 @@
 
 import UserNotifications
 
+// NOTE: To test run on terminal -> xcrun simctl push {device_bundle} com.plexus.ProofOfConcept ./NotificationExtension/push.apns
+// where {device_bundle} is the booted current simulator (see -> xcrun simctl list)
+
 class NotificationService: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
