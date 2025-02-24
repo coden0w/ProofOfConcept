@@ -13,6 +13,7 @@
 		8BF70ED12D67263B0062B3F0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF70ED02D67263B0062B3F0 /* SwiftUI.framework */; };
 		8BF70EE22D67263D0062B3F0 /* WidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BF70ECD2D67263B0062B3F0 /* WidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BF70EEC2D6773990062B3F0 /* AnyFileViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 8BF70EEB2D6773990062B3F0 /* AnyFileViewer */; };
+		8BF8AEEE2D6C688300CF3F45 /* ShareFiles in Frameworks */ = {isa = PBXBuildFile; productRef = 8BF8AEED2D6C688300CF3F45 /* ShareFiles */; };
 		D2C47AEA2D5DDAAC005B9FA5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */; };
 		D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D2C47AEB2D5DDAAC005B9FA5 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		8BF70ED02D67263B0062B3F0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		8BF70EEA2D6771060062B3F0 /* AnyFileViewer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AnyFileViewer; sourceTree = "<group>"; };
 		8BF70EED2D677A5B0062B3F0 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		8BF8AEE92D6C67BC00CF3F45 /* ShareFiles */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ShareFiles; sourceTree = "<group>"; };
 		D2C47BBC2D5DF19D005B9FA5 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D2C47BBE2D5DF19D005B9FA5 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		D2E606E32D4A3CA200D0A0B7 /* ProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF8AEEE2D6C688300CF3F45 /* ShareFiles in Frameworks */,
 				D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */,
 				8BD375632D65F98700494FB2 /* PDFViewer in Frameworks */,
 				8BF70EEC2D6773990062B3F0 /* AnyFileViewer in Frameworks */,
@@ -183,6 +186,7 @@
 		D2E606DA2D4A3CA200D0A0B7 = {
 			isa = PBXGroup;
 			children = (
+				8BF8AEE92D6C67BC00CF3F45 /* ShareFiles */,
 				8BF70EEA2D6771060062B3F0 /* AnyFileViewer */,
 				8B741E8D2D65E21200D474EE /* PDFViewer */,
 				8BB141402D64CB2800E76849 /* WebViewSPM */,
@@ -256,6 +260,7 @@
 				8BD375622D65F98700494FB2 /* PDFViewer */,
 				8BD375642D65F98A00494FB2 /* WebViewSPM */,
 				8BF70EEB2D6773990062B3F0 /* AnyFileViewer */,
+				8BF8AEED2D6C688300CF3F45 /* ShareFiles */,
 			);
 			productName = ProofOfConcept;
 			productReference = D2E606E32D4A3CA200D0A0B7 /* ProofOfConcept.app */;
@@ -821,6 +826,10 @@
 		8BF70EEB2D6773990062B3F0 /* AnyFileViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnyFileViewer;
+		};
+		8BF8AEED2D6C688300CF3F45 /* ShareFiles */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ShareFiles;
 		};
 		D2C47AE92D5DDAAC005B9FA5 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;

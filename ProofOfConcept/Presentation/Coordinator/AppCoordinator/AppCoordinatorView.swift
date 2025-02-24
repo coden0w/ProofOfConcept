@@ -28,6 +28,8 @@ struct AppCoordinatorView: View {
                                     destination: { pdfViewerView })
                         .navigation(isActive: $coordinator.anyFileViewerNavigation.isActive,
                                     destination: { anyFileViewerView })
+                        .navigation(isActive: $coordinator.shareFilesNavigation.isActive,
+                                    destination: { shareFilesView })
                     
                 }
             }
@@ -89,6 +91,13 @@ extension AppCoordinatorView {
             fatalError("Any file Viewer view model not set.")
         }
         return AnyFileViewerView(viewModel: vm)
+    }
+    
+    var shareFilesView: some View {
+        guard let vm = coordinator.shareFilesNavigation.viewModel else {
+            fatalError("Share files view model not set.")
+        }
+        return ShareFilesView(viewModel: vm)
     }
 }
 
