@@ -16,7 +16,8 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
                                              .init(id: 3, title: "Character Primary Colors"),
                                              .init(id: 4, title: "PDF Viewer"),
                                              .init(id: 5, title: "Any file Viewer"),
-                                             .init(id: 6, title: "Share files")]
+                                             .init(id: 6, title: "Share files"),
+                                             .init(id: 7, title: "Scan QR")]
     
     init(coordinator: AppCoordinator) {
         super.init(coordinator: coordinator)
@@ -50,6 +51,8 @@ class RootViewModel: BaseViewModel<AppCoordinatorProtocol> {
             self.coordinator?.showAnyFileViewer()
         case 6:
             self.coordinator?.showShareFiles()
+        case 7:
+            self.coordinator?.showScanQR()
         default:
             break
         }
