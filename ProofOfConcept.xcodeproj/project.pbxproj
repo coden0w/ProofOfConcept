@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B6037772D6CC37000727532 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B6037702D6CC37000727532 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8BD375632D65F98700494FB2 /* PDFViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 8BD375622D65F98700494FB2 /* PDFViewer */; };
 		8BD375652D65F98A00494FB2 /* WebViewSPM in Frameworks */ = {isa = PBXBuildFile; productRef = 8BD375642D65F98A00494FB2 /* WebViewSPM */; };
 		8BF70ECF2D67263B0062B3F0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF70ECE2D67263B0062B3F0 /* WidgetKit.framework */; };
@@ -20,6 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8B6037752D6CC37000727532 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2E606DB2D4A3CA200D0A0B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B60376F2D6CC37000727532;
+			remoteInfo = NotificationExtension;
+		};
 		8BF70EE02D67263D0062B3F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2E606DB2D4A3CA200D0A0B7 /* Project object */;
@@ -51,6 +59,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				8BF70EE22D67263D0062B3F0 /* WidgetExtensionExtension.appex in Embed Foundation Extensions */,
+				8B6037772D6CC37000727532 /* NotificationExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,6 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8B6037702D6CC37000727532 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B741E8D2D65E21200D474EE /* PDFViewer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PDFViewer; sourceTree = "<group>"; };
 		8BB141402D64CB2800E76849 /* WebViewSPM */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WebViewSPM; sourceTree = "<group>"; };
 		8BF70ECD2D67263B0062B3F0 /* WidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +85,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8B60377B2D6CC37000727532 /* Exceptions for "NotificationExtension" folder in "NotificationExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8B60376F2D6CC37000727532 /* NotificationExtension */;
+		};
 		8BF70EE62D67263D0062B3F0 /* Exceptions for "WidgetExtension" folder in "WidgetExtensionExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -99,6 +116,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		8B6037712D6CC37000727532 /* NotificationExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8B60377B2D6CC37000727532 /* Exceptions for "NotificationExtension" folder in "NotificationExtension" target */,
+			);
+			path = NotificationExtension;
+			sourceTree = "<group>";
+		};
 		8BF70ED22D67263B0062B3F0 /* WidgetExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -106,11 +131,6 @@
 				8BF70EE62D67263D0062B3F0 /* Exceptions for "WidgetExtension" folder in "WidgetExtensionExtension" target */,
 			);
 			path = WidgetExtension;
-			sourceTree = "<group>";
-		};
-		D2C47BC02D5DF19D005B9FA5 /* asd */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = asd;
 			sourceTree = "<group>";
 		};
 		D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */ = {
@@ -134,6 +154,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8B60376D2D6CC37000727532 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BF70ECA2D67263B0062B3F0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -197,8 +224,8 @@
 				D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */,
 				D2E606F62D4A3CA400D0A0B7 /* ProofOfConceptTests */,
 				D2E607002D4A3CA400D0A0B7 /* ProofOfConceptUITests */,
-				D2C47BC02D5DF19D005B9FA5 /* asd */,
 				8BF70ED22D67263B0062B3F0 /* WidgetExtension */,
+				8B6037712D6CC37000727532 /* NotificationExtension */,
 				D2C47AE82D5DDAAC005B9FA5 /* Frameworks */,
 				D2E606E42D4A3CA200D0A0B7 /* Products */,
 			);
@@ -211,6 +238,7 @@
 				D2E606F32D4A3CA400D0A0B7 /* ProofOfConceptTests.xctest */,
 				D2E606FD2D4A3CA400D0A0B7 /* ProofOfConceptUITests.xctest */,
 				8BF70ECD2D67263B0062B3F0 /* WidgetExtensionExtension.appex */,
+				8B6037702D6CC37000727532 /* NotificationExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,6 +246,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8B60376F2D6CC37000727532 /* NotificationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B60377A2D6CC37000727532 /* Build configuration list for PBXNativeTarget "NotificationExtension" */;
+			buildPhases = (
+				8B60376C2D6CC37000727532 /* Sources */,
+				8B60376D2D6CC37000727532 /* Frameworks */,
+				8B60376E2D6CC37000727532 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8B6037712D6CC37000727532 /* NotificationExtension */,
+			);
+			name = NotificationExtension;
+			packageProductDependencies = (
+			);
+			productName = NotificationExtension;
+			productReference = 8B6037702D6CC37000727532 /* NotificationExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8BF70ECC2D67263B0062B3F0 /* WidgetExtensionExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BF70EE32D67263D0062B3F0 /* Build configuration list for PBXNativeTarget "WidgetExtensionExtension" */;
@@ -253,6 +303,7 @@
 			);
 			dependencies = (
 				8BF70EE12D67263D0062B3F0 /* PBXTargetDependency */,
+				8B6037762D6CC37000727532 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D2E606E52D4A3CA200D0A0B7 /* ProofOfConcept */,
@@ -327,6 +378,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					8B60376F2D6CC37000727532 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					8BF70ECC2D67263B0062B3F0 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -364,11 +418,19 @@
 				D2E606F22D4A3CA400D0A0B7 /* ProofOfConceptTests */,
 				D2E606FC2D4A3CA400D0A0B7 /* ProofOfConceptUITests */,
 				8BF70ECC2D67263B0062B3F0 /* WidgetExtensionExtension */,
+				8B60376F2D6CC37000727532 /* NotificationExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8B60376E2D6CC37000727532 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BF70ECB2D67263B0062B3F0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -400,6 +462,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8B60376C2D6CC37000727532 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BF70EC92D67263B0062B3F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,6 +500,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8B6037762D6CC37000727532 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B60376F2D6CC37000727532 /* NotificationExtension */;
+			targetProxy = 8B6037752D6CC37000727532 /* PBXContainerItemProxy */;
+		};
 		8BF70EE12D67263D0062B3F0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8BF70ECC2D67263B0062B3F0 /* WidgetExtensionExtension */;
@@ -449,6 +523,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8B6037782D6CC37000727532 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationExtension/NotificationExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plexus.ProofOfConcept.NotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8B6037792D6CC37000727532 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationExtension/NotificationExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plexus.ProofOfConcept.NotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		8BF70EE42D67263D0062B3F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -771,6 +899,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8B60377A2D6CC37000727532 /* Build configuration list for PBXNativeTarget "NotificationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B6037782D6CC37000727532 /* Debug */,
+				8B6037792D6CC37000727532 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8BF70EE32D67263D0062B3F0 /* Build configuration list for PBXNativeTarget "WidgetExtensionExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
