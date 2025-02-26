@@ -30,6 +30,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Failed to register: \(error.localizedDescription)")
     }
     
+    func application(_ application: UIApplication,
+                     continue userActivity: NSUserActivity,
+                     restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+              let url = userActivity.webpageURL,
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return false
+        }
+        print("Universal links URL: \(url.absoluteString)")
+        handleDeeplink(url)
+        return true
+    }
+
+    private func handleDeeplink(_ url: URL) {
+        UserDefaults.standard.set(url.absoluteString, forKey: "deferredDeepLink")
+    }
+    
     func requestNotificationPermission() {
         Task {
             let center = UNUserNotificationCenter.current()
