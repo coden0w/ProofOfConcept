@@ -75,24 +75,28 @@ class CharactersDownloadViewModel: BaseViewModel<AppCoordinatorProtocol> {
                             guard let image = await self.imageService.downloadImage(from: character.image) else { return }
                             do {
                                 try await self.photoLibraryService.saveImage(image, to: album)
-                                await MainActor.run {
+                                await MainActor.run { [weak self] in
+                                    guard let self else { return }
                                     self.progress += 1.0
                                 }
                             } catch {
-                                await MainActor.run {
+                                await MainActor.run { [weak self] in
+                                    guard let self else { return }
                                     self.showError = .albumName
                                 }
                             }
                         }
                     }
                 } catch {
-                    await MainActor.run {
+                    await MainActor.run { [weak self] in
+                        guard let self else { return }
                         self.showError = .service
                     }
                 }
             }
             
-            await MainActor.run {
+            await MainActor.run { [weak self] in
+                guard let self else { return }
                 self.isDownloading = false
                 self.progress = .zero
             }

@@ -25,11 +25,13 @@ struct RootView: View {
         .bind(lifeCycle: viewModel)
         .navigationTitle("Go To")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            checkDeferredDeepLink()
+        }
     }
 }
 
 extension RootView {
-    
     @ViewBuilder
     private func ListItemView(_ item: String) -> some View {
         HStack {
@@ -38,6 +40,16 @@ extension RootView {
             Image(systemName: "chevron.right")
         }
         .contentShape(Rectangle())
+    }
+}
+
+extension RootView {
+    private func checkDeferredDeepLink() {
+        if let deferredLink = UserDefaults.standard.string(forKey: "deferredDeepLink") {
+            print("Deferred deeplink detected: \(deferredLink)")
+
+            UserDefaults.standard.removeObject(forKey: "deferredDeepLink")
+        }
     }
 }
 
