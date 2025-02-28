@@ -32,6 +32,8 @@ struct AppCoordinatorView: View {
                                     destination: { shareFilesView })
                         .navigation(isActive: $coordinator.showScanQRNavigation.isActive,
                                     destination: { scanQRView })
+                        .navigation(isActive: $coordinator.videoViewerNavigation.isActive,
+                                    destination: { videoViewerView })
                 }
             }
         }
@@ -106,6 +108,13 @@ extension AppCoordinatorView {
             fatalError("Scan QR view model not set.")
         }
         return ScanQRView(viewModel: vm)
+    }
+    
+    var videoViewerView: some View {
+        guard let vm = coordinator.videoViewerNavigation.viewModel else {
+            fatalError("Video viewer view model not set.")
+        }
+        return VideoViewerView(viewModel: vm)
     }
 }
 
