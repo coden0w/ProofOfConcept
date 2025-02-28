@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8B6037772D6CC37000727532 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B6037702D6CC37000727532 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8B6037C22D71C13800727532 /* VideosViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 8B6037C12D71C13800727532 /* VideosViewer */; };
 		8BD375632D65F98700494FB2 /* PDFViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 8BD375622D65F98700494FB2 /* PDFViewer */; };
 		8BD375652D65F98A00494FB2 /* WebViewSPM in Frameworks */ = {isa = PBXBuildFile; productRef = 8BD375642D65F98A00494FB2 /* WebViewSPM */; };
 		8BF70ECF2D67263B0062B3F0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF70ECE2D67263B0062B3F0 /* WidgetKit.framework */; };
@@ -68,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		8B6037702D6CC37000727532 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B6037BB2D71C05E00727532 /* VideosViewer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = VideosViewer; sourceTree = "<group>"; };
 		8B741E8D2D65E21200D474EE /* PDFViewer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PDFViewer; sourceTree = "<group>"; };
 		8BB141402D64CB2800E76849 /* WebViewSPM */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WebViewSPM; sourceTree = "<group>"; };
 		8BF70ECD2D67263B0062B3F0 /* WidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B6037C22D71C13800727532 /* VideosViewer in Frameworks */,
 				8BF8AEEE2D6C688300CF3F45 /* ShareFiles in Frameworks */,
 				8BF8AEFD2D6C8DD900CF3F45 /* ScanQR in Frameworks */,
 				D2C47AEC2D5DDAAC005B9FA5 /* FirebaseMessaging in Frameworks */,
@@ -216,6 +219,7 @@
 		D2E606DA2D4A3CA200D0A0B7 = {
 			isa = PBXGroup;
 			children = (
+				8B6037BB2D71C05E00727532 /* VideosViewer */,
 				8BF8AEF62D6C8CC000CF3F45 /* ScanQR */,
 				8BF8AEE92D6C67BC00CF3F45 /* ShareFiles */,
 				8BF70EEA2D6771060062B3F0 /* AnyFileViewer */,
@@ -317,6 +321,7 @@
 				8BF70EEB2D6773990062B3F0 /* AnyFileViewer */,
 				8BF8AEED2D6C688300CF3F45 /* ShareFiles */,
 				8BF8AEFC2D6C8DD900CF3F45 /* ScanQR */,
+				8B6037C12D71C13800727532 /* VideosViewer */,
 			);
 			productName = ProofOfConcept;
 			productReference = D2E606E32D4A3CA200D0A0B7 /* ProofOfConcept.app */;
@@ -967,6 +972,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8B6037C12D71C13800727532 /* VideosViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VideosViewer;
+		};
 		8BD375622D65F98700494FB2 /* PDFViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PDFViewer;

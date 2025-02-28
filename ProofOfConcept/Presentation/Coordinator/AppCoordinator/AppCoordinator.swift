@@ -17,6 +17,7 @@ protocol AppCoordinatorProtocol {
     func showAnyFileViewer()
     func showShareFiles()
     func showScanQR()
+    func showVideoViewer()
 }
 
 @MainActor
@@ -31,6 +32,7 @@ final class AppCoordinator: ObservableObject, Identifiable {
     @Published var anyFileViewerNavigation = NavigationItem<AnyFileViewerViewModel>()
     @Published var shareFilesNavigation = NavigationItem<ShareFilesViewModel>()
     @Published var showScanQRNavigation = NavigationItem<ScanQRViewModel>()
+    @Published var videoViewerNavigation = NavigationItem<VideoViewerViewModel>()
 }
 
 extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
@@ -95,6 +97,13 @@ extension AppCoordinator: @preconcurrency AppCoordinatorProtocol {
         let viewModel = ScanQRViewModel(coordinator: self)
         showScanQRNavigation.navigate(to: viewModel) {
             print("Scan QR screen dismissed")
+        }
+    }
+    
+    func showVideoViewer() {
+        let viewModel = VideoViewerViewModel(coordinator: self)
+        videoViewerNavigation.navigate(to: viewModel) {
+            print("Video viewer screen dismissed")
         }
     }
 }
