@@ -12,7 +12,9 @@ struct VideoViewerView: View {
 
     var body: some View {
         TabView {
-            VideoPlayerView(url: viewModel.urlVideo)
+            if let url = viewModel.urlVideo {
+                VideoPlayerView(url: url)
+            }
         }
         .bind(lifeCycle: viewModel)
         .navigationTitle(Text("Video Viewer"))
