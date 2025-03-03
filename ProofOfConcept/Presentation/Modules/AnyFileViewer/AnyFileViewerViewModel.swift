@@ -52,6 +52,7 @@ struct AnyFileModel {
 
 enum AnyFileType: String, CaseIterable, Hashable {
     case pdf
+    case img
     case xls
     case doc
     case zip
@@ -62,6 +63,8 @@ enum AnyFileType: String, CaseIterable, Hashable {
         switch self {
         case .pdf:
             return AnyFileModel(url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", ext: "pdf")
+        case .img:
+            return AnyFileModel(url: "https://fujifilm-x.b-cdn.net/wp-content/uploads/2021/01/gfx100s_sample_04_oulq-min.jpg", ext: "jpg")
         case .xls:
             return AnyFileModel(url: "https://www.cmu.edu/blackboard/files/evaluate/tests-example.xls", ext: "xls")
         case .doc:
