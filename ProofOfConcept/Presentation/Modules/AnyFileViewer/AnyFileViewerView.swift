@@ -27,7 +27,7 @@ struct AnyFileViewerView: View {
                 } label: {
                     HStack {
                         ThumnailView(item: item)
-                        Text("Open \(item.file.ext.uppercased()) file to preview")
+                        Text("Open \(item.file.ext.rawValue.uppercased()) file to preview")
                     }
                 }
             }

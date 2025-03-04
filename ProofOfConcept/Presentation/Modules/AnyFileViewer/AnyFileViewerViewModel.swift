@@ -37,7 +37,7 @@ class AnyFileViewerViewModel: BaseViewModel<AppCoordinatorProtocol> {
             try fileManager.moveItem(at: tempURL, to: destinationURL)
             
             DispatchQueue.main.async {
-                self.item = QuickLookPreviewItem(url: destinationURL, title: "\(type.file.ext.uppercased()) preview")
+                self.item = QuickLookPreviewItem(url: destinationURL, title: "\(type.file.ext.rawValue.uppercased()) preview")
             }
         } catch {
             print(error.localizedDescription)
@@ -57,19 +57,19 @@ enum AnyFileType: String, CaseIterable, Hashable {
     var file: AnyFileModel {
         switch self {
         case .pdf:
-            return AnyFileModel(url: "https://pdfobject.com/pdf/sample.pdf", ext: "pdf")
+            return AnyFileModel(url: "https://pdfobject.com/pdf/sample.pdf", ext: FileExtensionType.pdf)
         case .img:
-            return AnyFileModel(url: "https://fujifilm-x.b-cdn.net/wp-content/uploads/2021/01/gfx100s_sample_04_oulq-min.jpg", ext: "jpg")
+            return AnyFileModel(url: "https://fujifilm-x.b-cdn.net/wp-content/uploads/2021/01/gfx100s_sample_04_oulq-min.jpg", ext: FileExtensionType.img)
         case .xls:
-            return AnyFileModel(url: "https://www.cmu.edu/blackboard/files/evaluate/tests-example.xls", ext: "xls")
+            return AnyFileModel(url: "https://www.cmu.edu/blackboard/files/evaluate/tests-example.xls", ext: FileExtensionType.xls)
         case .doc:
-            return AnyFileModel(url: "https://podcasts.ceu.edu/sites/podcasts.ceu.edu/files/sample.doc", ext: "doc")
+            return AnyFileModel(url: "https://podcasts.ceu.edu/sites/podcasts.ceu.edu/files/sample.doc", ext: FileExtensionType.doc)
         case .zip:
-            return AnyFileModel(url: "https://getsamplefiles.com/download/zip/sample-1.zip", ext: "zip")
+            return AnyFileModel(url: "https://getsamplefiles.com/download/zip/sample-1.zip", ext: FileExtensionType.zip)
         case .mp4:
-            return AnyFileModel(url: "https://www.sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4", ext: "mp4")
+            return AnyFileModel(url: "https://www.sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4", ext: FileExtensionType.mp4)
         case .txt:
-            return AnyFileModel(url: "https://example-files.online-convert.com/document/txt/example.txt", ext: "txt")
+            return AnyFileModel(url: "https://example-files.online-convert.com/document/txt/example.txt", ext: FileExtensionType.txt)
         }
     }
 }
