@@ -45,11 +45,6 @@ class AnyFileViewerViewModel: BaseViewModel<AppCoordinatorProtocol> {
     }
 }
 
-struct AnyFileModel {
-    let url: String
-    let ext: String
-}
-
 enum AnyFileType: String, CaseIterable, Hashable {
     case pdf
     case img
@@ -62,7 +57,7 @@ enum AnyFileType: String, CaseIterable, Hashable {
     var file: AnyFileModel {
         switch self {
         case .pdf:
-            return AnyFileModel(url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", ext: "pdf")
+            return AnyFileModel(url: "https://pdfobject.com/pdf/sample.pdf", ext: "pdf")
         case .img:
             return AnyFileModel(url: "https://fujifilm-x.b-cdn.net/wp-content/uploads/2021/01/gfx100s_sample_04_oulq-min.jpg", ext: "jpg")
         case .xls:
@@ -72,7 +67,7 @@ enum AnyFileType: String, CaseIterable, Hashable {
         case .zip:
             return AnyFileModel(url: "https://getsamplefiles.com/download/zip/sample-1.zip", ext: "zip")
         case .mp4:
-            return AnyFileModel(url: "https://file-examples.com/wp-content/storage/2017/04/file_example_MP4_480_1_5MG.mp4", ext: "mp4")
+            return AnyFileModel(url: "https://www.sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4", ext: "mp4")
         case .txt:
             return AnyFileModel(url: "https://example-files.online-convert.com/document/txt/example.txt", ext: "txt")
         }
